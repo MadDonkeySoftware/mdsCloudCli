@@ -1,0 +1,45 @@
+{
+  "name": "mds-cli",
+  "version": "0.1.0",
+  "description": "A simple CLI for various MDS services",
+  "main": "src/autocomplete.js",
+  "bin": {
+    "mds": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "NODE_ENV=test mocha",
+    "test-cov": "NODE_ENV=test nyc mocha",
+    "lint": "eslint 'src/**'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadDonkeySoftware/mds-cli.git"
+  },
+  "keywords": [
+    "mds",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MadDonkeySoftware/mds-cli/issues"
+  },
+  "homepage": "https://github.com/MadDonkeySoftware/mds-cli#readme",
+  "dependencies": {
+    "got": "^9.6.0",
+    "url-join": "^4.0.1",
+    "yargs": "^14.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.1",
+    "npm-check-updates": "^3.1.24",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0"
+  }
+}
