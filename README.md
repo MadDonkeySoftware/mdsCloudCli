@@ -1,6 +1,10 @@
 # mds-cli
 Command line tool for interfacing with various mds services and utilities
 
+## Project Status
+
+https://trello.com/b/hOlFXqO5/projects?menu=filter&filter=label:CLI
+
 ## Getting Started
 
 ### Development
