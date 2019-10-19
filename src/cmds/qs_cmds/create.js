@@ -34,13 +34,15 @@ const printResult = (statusCode) => {
   }
 };
 
+const handle = (queue, resource) => createQueue(queue, resource)
+  .then((resp) => printResult(resp.statusCode));
+
 exports.command = 'create <queue>';
 exports.desc = 'Creates a new queue';
-exports.builder = {
+exports.builder = utils.extendBaseCommandBuilder({
   resource: {
     default: null,
     desc: 'resource to be invoked upon message being enqueued',
   },
-};
-exports.handler = (argv) => createQueue(argv.queue, argv.resource)
-  .then((resp) => printResult(resp.statusCode));
+});
+exports.handler = (argv) => handle(argv.queue, argv.resource);

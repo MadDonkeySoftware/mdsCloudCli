@@ -3,7 +3,7 @@ const urlJoin = require('url-join');
 
 const utils = require('../../../lib/utils');
 
-const getQueues = () => utils.getEnvConfig()
+const getQueues = (env) => utils.getEnvConfig(env)
   .then((conf) => urlJoin(conf.smUrl, 'machines'))
   .then((url) => {
     const postOptions = {
@@ -40,10 +40,12 @@ const sortCompare = (a, b) => {
   return 0;
 };
 
-exports.command = 'list';
-exports.desc = 'Get the list of available state machines';
-exports.builder = {};
-exports.handler = () => getQueues()
+const handle = (env) => getQueues(env)
   .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body) : null))
   .then((machines) => machines.sort(sortCompare))
   .then((machines) => printResult(machines));
+
+exports.command = 'list';
+exports.desc = 'Get the list of available state machines';
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.env);

@@ -1,6 +1,6 @@
 const utils = require('../../../lib/utils');
 
-const write = (key, value, env) => {
+const handle = (key, value, env) => {
   if (!utils.CONFIG_KEYS.includes(key)) {
     return Promise.resolve(utils.display(`"${key}" key not understood. Expected: ${utils.CONFIG_KEYS.join(', ')}`));
   }
@@ -13,10 +13,5 @@ const write = (key, value, env) => {
 
 exports.command = 'write <key> <value>';
 exports.desc = `Writes a config detail. Valid keys: ${utils.CONFIG_KEYS.join(', ')}`;
-exports.builder = {
-  env: {
-    default: 'default',
-    desc: 'The environment to write this value to',
-  },
-};
-exports.handler = (argv) => write(argv.key, argv.value, argv.env);
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.key, argv.value, argv.env);

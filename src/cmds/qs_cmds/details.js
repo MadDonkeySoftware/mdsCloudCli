@@ -23,14 +23,11 @@ const printResult = (metadata) => {
   }
 };
 
-exports.command = 'details <queue>';
-exports.desc = 'Get the details of the <queue> queue';
-exports.builder = {
-  env: {
-    default: 'default',
-    desc: 'The environment to write this value to',
-  },
-};
-exports.handler = (argv) => getQueueDetails(argv.queue, argv.env)
+const handle = (queue, env) => getQueueDetails(queue, env)
   .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body) : null))
   .then((metadata) => printResult(metadata));
+
+exports.command = 'details <queue>';
+exports.desc = 'Get the details of the <queue> queue';
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.queue, argv.env);

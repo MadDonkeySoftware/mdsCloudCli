@@ -1,6 +1,6 @@
 const utils = require('../../../lib/utils');
 
-const read = (key, env) => {
+const handle = (key, env) => {
   if (!utils.CONFIG_KEYS.includes(key)) {
     return Promise.resolve(utils.display(`"${key}" key not understood. Expected: ${utils.CONFIG_KEYS.join(', ')}`));
   }
@@ -11,10 +11,5 @@ const read = (key, env) => {
 
 exports.command = 'inspect <key>';
 exports.desc = `Inspects a config detail. Valid keys: ${utils.CONFIG_KEYS.join(', ')}`;
-exports.builder = {
-  env: {
-    default: 'default',
-    desc: 'The environment to inspect from',
-  },
-};
-exports.handler = (argv) => read(argv.key, argv.env);
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.key, argv.env);

@@ -24,8 +24,10 @@ const printResult = (statusCode) => {
   }
 };
 
+const handle = (queue) => deleteQueue(queue)
+  .then((resp) => printResult(resp.statusCode));
+
 exports.command = 'delete <queue>';
 exports.desc = 'Removes a queue';
-exports.builder = {};
-exports.handler = (argv) => deleteQueue(argv.queue)
-  .then((resp) => printResult(resp.statusCode));
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.queue);
