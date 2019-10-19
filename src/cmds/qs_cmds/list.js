@@ -3,7 +3,7 @@ const urlJoin = require('url-join');
 
 const utils = require('../../../lib/utils');
 
-const getQueues = () => utils.getEnvConfig()
+const getQueues = (env) => utils.getEnvConfig(env)
   .then((conf) => urlJoin(conf.qsUrl, 'queues'))
   .then((url) => {
     const postOptions = {
@@ -25,10 +25,12 @@ const printResult = (queues) => {
   }
 };
 
-exports.command = 'list';
-exports.desc = 'Get the list of available queues';
-exports.builder = {};
-exports.handler = () => getQueues()
+const handle = (env) => getQueues(env)
   .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body) : null))
   .then((queues) => queues.sort())
   .then((queues) => printResult(queues));
+
+exports.command = 'list';
+exports.desc = 'Get the list of available queues';
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.env);

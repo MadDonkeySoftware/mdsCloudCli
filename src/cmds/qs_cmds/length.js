@@ -3,7 +3,7 @@ const urlJoin = require('url-join');
 
 const utils = require('../../../lib/utils');
 
-const getQueueLength = (name) => utils.getEnvConfig()
+const getQueueLength = (name, env) => utils.getEnvConfig(env)
   .then((conf) => urlJoin(conf.qsUrl, 'queue', name, 'length'))
   .then((url) => {
     const postOptions = {
@@ -23,9 +23,11 @@ const printResult = (size) => {
   }
 };
 
+const handle = (queue, env) => getQueueLength(queue, env)
+  .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body).size : -1))
+  .then((size) => printResult(size))
+
 exports.command = 'length <queue>';
 exports.desc = 'Get the length of the <queue> queue';
-exports.builder = {};
-exports.handler = (argv) => getQueueLength(argv.queue)
-  .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body).size : -1))
-  .then((size) => printResult(size));
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.queue, argv.env);

@@ -7,7 +7,7 @@ const utils = require('../../../lib/utils');
 
 const readFile = util.promisify(fs.readFile);
 
-const createStateMachine = (file) => utils.getEnvConfig()
+const createStateMachine = (file, env) => utils.getEnvConfig(env)
   .then((conf) => urlJoin(conf.smUrl, 'machine'))
   .then((url) => readFile(file)
     .then((body) => {
@@ -32,8 +32,10 @@ const printResult = (resp) => {
   }
 };
 
+const handle = (file, env) => createStateMachine(file, env)
+  .then((resp) => printResult(resp));
+
 exports.command = 'create <file>';
 exports.desc = 'Creates a new state machine';
-exports.builder = {};
-exports.handler = (argv) => createStateMachine(argv.file)
-  .then((resp) => printResult(resp));
+exports.builder = utils.extendBaseCommandBuilder();
+exports.handler = (argv) => handle(argv.file, argv.env);

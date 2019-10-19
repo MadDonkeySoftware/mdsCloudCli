@@ -32,17 +32,15 @@ const printResult = (statusCode) => {
   }
 };
 
+const handle = (argv) => updateQueue(argv)
+  .then((resp) => printResult(resp.statusCode));
+
 exports.command = 'update <queue>';
 exports.desc = 'Updates metadata around the <queue> queue.';
-exports.builder = {
-  env: {
-    default: 'default',
-    desc: 'The environment to write this value to',
-  },
+exports.builder = utils.extendBaseCommandBuilder({
   resource: {
     default: null,
     desc: 'resource to be invoked upon message being enqueued. Use the string "null" to delete the current value',
   },
-};
-exports.handler = (argv) => updateQueue(argv)
-  .then((resp) => printResult(resp.statusCode));
+});
+exports.handler = (argv) => handle(argv);
