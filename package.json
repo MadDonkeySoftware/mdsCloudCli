@@ -27,19 +27,21 @@
   },
   "homepage": "https://github.com/MadDonkeySoftware/mds-cli#readme",
   "dependencies": {
+    "@maddonkeysoftware/mds-sdk-node": "^0.0.2",
     "cli-table": "^0.3.1",
+    "download": "^7.1.0",
+    "form-data": "^3.0.0",
     "got": "^9.6.0",
     "lodash": "^4.17.15",
     "url-join": "^4.0.1",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.7.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "mocha": "^6.2.1",
-    "npm-check-updates": "^3.1.24",
+    "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.3.0"
