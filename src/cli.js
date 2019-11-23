@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const yargs = require('yargs');
 const environment = require('./middleware/environment');
 
 const middleware = [
@@ -6,9 +7,10 @@ const middleware = [
 ];
 
 // eslint-disable-next-line no-unused-expressions
-require('yargs')
+yargs
   .middleware(middleware)
   .commandDir('./cmds')
   .demandCommand()
+  .wrap(yargs.terminalWidth())
   .help()
   .argv;
