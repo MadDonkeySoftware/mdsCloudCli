@@ -1,39 +1,17 @@
-const got = require('got');
-const urlJoin = require('url-join');
+const mdsSdk = require('@maddonkeysoftware/mds-sdk-node');
 
 const utils = require('../../../lib/utils');
 
 const updateQueue = ({ queue, resource, env }) => utils.getEnvConfig(env)
-  .then((conf) => urlJoin(conf.qsUrl, 'queue', queue))
-  .then((url) => {
-    const body = { };
-
-    if (resource) {
-      body.resource = resource.toUpperCase() === 'NULL' ? null : resource;
-    }
-
-    const postOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      throwHttpErrors: false,
-      body: JSON.stringify(body),
-    };
-
-    return got.post(url, postOptions);
+  .then((conf) => {
+    mdsSdk.initialize({ qsUrl: conf.qsUrl });
+    const client = mdsSdk.getQueueServiceClient();
+    return client.updateQueue(queue, { resource });
   });
 
-const printResult = (statusCode) => {
-  if (statusCode === 200) {
-    utils.display('Queue updated successfully.');
-  } else {
-    utils.display('An error occurred while updating the queue.');
-    utils.display(`Status: ${statusCode}`);
-  }
-};
-
 const handle = (argv) => updateQueue(argv)
-  .then((resp) => printResult(resp.statusCode));
+  .then(() => utils.display('Queue updated successfully.'))
+  .catch((err) => utils.display(`An error occurred while updating the queue. ${err}`));
 
 exports.command = 'update <queue>';
 exports.desc = 'Updates metadata around the <queue> queue.';

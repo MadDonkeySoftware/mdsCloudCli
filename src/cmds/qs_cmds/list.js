@@ -1,22 +1,17 @@
-const got = require('got');
-const urlJoin = require('url-join');
+const mdsSdk = require('@maddonkeysoftware/mds-sdk-node');
 
 const utils = require('../../../lib/utils');
 
 const getQueues = (env) => utils.getEnvConfig(env)
-  .then((conf) => urlJoin(conf.qsUrl, 'queues'))
-  .then((url) => {
-    const postOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      throwHttpErrors: false,
-    };
-    return got.get(url, postOptions);
+  .then((conf) => {
+    mdsSdk.initialize({ qsUrl: conf.qsUrl });
+    const client = mdsSdk.getQueueServiceClient();
+    return client.listQueues();
   });
 
 const printResult = (queues) => {
   if (queues) {
+    queues.sort();
     queues.forEach((queue) => {
       utils.display(`${queue}`);
     });
@@ -26,8 +21,6 @@ const printResult = (queues) => {
 };
 
 const handle = (env) => getQueues(env)
-  .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body) : null))
-  .then((queues) => queues.sort())
   .then((queues) => printResult(queues));
 
 exports.command = 'list';

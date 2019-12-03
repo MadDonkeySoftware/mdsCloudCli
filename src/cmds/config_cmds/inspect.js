@@ -8,7 +8,7 @@ const handle = (key, env) => {
   return utils.getEnvConfig(env)
     .then((settings) => {
       if (key === 'all') {
-        const rows = []
+        const rows = [];
         utils.CONFIG_KEYS.forEach((k) => {
           rows.push([k, settings[k] || '']);
         });

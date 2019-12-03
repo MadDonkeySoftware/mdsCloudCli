@@ -6,7 +6,7 @@ const getContainers = (env) => utils.getEnvConfig(env)
   .then((conf) => {
     mdsSdk.initialize({ fsUrl: conf.fsUrl });
     const client = mdsSdk.getFileServiceClient();
-    return client.getContainers();
+    return client.listContainers();
   });
 
 const printResult = (containers) => {

@@ -1,18 +1,12 @@
-const got = require('got');
-const urlJoin = require('url-join');
+const mdsSdk = require('@maddonkeysoftware/mds-sdk-node');
 
 const utils = require('../../../lib/utils');
 
 const getQueueDetails = (name, env) => utils.getEnvConfig(env)
-  .then((conf) => urlJoin(conf.qsUrl, 'queue', name, 'details'))
-  .then((url) => {
-    const postOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      throwHttpErrors: false,
-    };
-    return got.get(url, postOptions);
+  .then((conf) => {
+    mdsSdk.initialize({ qsUrl: conf.qsUrl });
+    const client = mdsSdk.getQueueServiceClient();
+    return client.getQueueDetails(name);
   });
 
 const printResult = (metadata) => {
@@ -24,7 +18,6 @@ const printResult = (metadata) => {
 };
 
 const handle = (queue, env) => getQueueDetails(queue, env)
-  .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body) : null))
   .then((metadata) => printResult(metadata));
 
 exports.command = 'details <queue>';
