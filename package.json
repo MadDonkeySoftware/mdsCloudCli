@@ -27,13 +27,14 @@
   },
   "homepage": "https://github.com/MadDonkeySoftware/mds-cli#readme",
   "dependencies": {
-    "@maddonkeysoftware/mds-sdk-node": "^0.0.3",
+    "@maddonkeysoftware/mds-sdk-node": "0.0.4",
     "cli-table": "^0.3.1",
     "download": "^7.1.0",
     "form-data": "^3.0.0",
     "got": "^10.0.1",
     "lodash": "^4.17.15",
     "url-join": "^4.0.1",
+    "verror": "^1.10.0",
     "yargs": "^15.0.2"
   },
   "devDependencies": {

@@ -1,18 +1,11 @@
-const got = require('got');
-const urlJoin = require('url-join');
+const mdsSdk = require('@maddonkeysoftware/mds-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getQueues = (env) => utils.getEnvConfig(env)
-  .then((conf) => urlJoin(conf.smUrl, 'machines'))
-  .then((url) => {
-    const postOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      throwHttpErrors: false,
-    };
-    return got.get(url, postOptions);
+const getMachines = (env) => utils.getEnvConfig(env)
+  .then((conf) => {
+    const client = mdsSdk.getStateMachineServiceClient(conf.smUrl);
+    return client.listStateMachines();
   });
 
 const printResult = (machines) => {
@@ -40,10 +33,10 @@ const sortCompare = (a, b) => {
   return 0;
 };
 
-const handle = (env) => getQueues(env)
-  .then((resp) => (resp.statusCode === 200 ? JSON.parse(resp.body) : null))
+const handle = (env) => getMachines(env)
   .then((machines) => machines.sort(sortCompare))
-  .then((machines) => printResult(machines));
+  .then((machines) => printResult(machines))
+  .catch((err) => utils.display(`An error occurred while listing the state machines. ${err.message}`));
 
 exports.command = 'list';
 exports.desc = 'Get the list of available state machines';
