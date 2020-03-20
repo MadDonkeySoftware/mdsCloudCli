@@ -23,8 +23,16 @@ const printResult = (containers) => {
   }
 };
 
+const sorter = (a, b) => {
+  if (a.toUpperCase < b.toUpperCase()) return 1;
+  if (a.toUpperCase > b.toUpperCase()) return -1;
+  if (a < b) return 1;
+  if (a > b) return -1;
+  return 0;
+};
+
 const handle = (env) => getContainers(env)
-  .then((containers) => containers.sort())
+  .then((containers) => containers.sort(sorter))
   .then((containers) => printResult(containers));
 
 exports.command = 'containers';

@@ -6,7 +6,7 @@ const uploadToContainer = (containerPath, env) => utils.getEnvConfig(env)
   .then((conf) => {
     mdsSdk.initialize({ fsUrl: conf.fsUrl });
     const client = mdsSdk.getFileServiceClient();
-    return client.downloadFile(containerPath, '.');
+    return client.downloadFile(containerPath, process.cwd());
   });
 
 const handle = (argv) => uploadToContainer(argv.containerPath, argv.env)
