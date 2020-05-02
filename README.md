@@ -1,9 +1,10 @@
-# mds-cli
+# mdsCloudCli
+
 Command line tool for interfacing with various mds services and utilities
 
 ## Project Status
 
-https://trello.com/b/hOlFXqO5/projects?menu=filter&filter=label:CLI
+https://github.com/orgs/MadDonkeySoftware/projects/1
 
 ## Getting Started
 

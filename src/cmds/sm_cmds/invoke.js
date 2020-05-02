@@ -1,6 +1,6 @@
 const fs = require('fs');
 const util = require('util');
-const mdsSdk = require('@maddonkeysoftware/mds-sdk-node');
+const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 const VError = require('verror');
 
 const utils = require('../../../lib/utils');
