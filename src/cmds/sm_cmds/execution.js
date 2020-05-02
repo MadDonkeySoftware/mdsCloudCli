@@ -1,4 +1,4 @@
-const mdsSdk = require('@maddonkeysoftware/mds-sdk-node');
+const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 const utils = require('../../../lib/utils');
 
 const getDetails = ({ id, env }) => utils.getEnvConfig(env)
