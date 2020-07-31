@@ -10,7 +10,7 @@ const handle = (key, env) => {
       if (key === 'all') {
         const rows = [];
         utils.CONFIG_KEYS.forEach((k) => {
-          rows.push([k, settings[k] || '']);
+          rows.push([utils.CONFIG_KEY_DESCRIPTIONS[k], settings[k] || '']);
         });
         utils.displayTable(rows, ['Setting', 'Value']);
       } else {
