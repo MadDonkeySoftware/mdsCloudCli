@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-const os = require('os');
-
 const utils = require('../../lib/utils');
 
 const handler = (argv) => {
@@ -10,7 +8,14 @@ const handler = (argv) => {
   }
 
   argv.env = argv.env || 'default';
-  return Promise.resolve(utils.display(`Current environment: ${argv.env}${os.EOL}`));
+
+  utils.display(`Current environment: ${argv.env}`);
+  if (!(argv._[0] === 'config' && argv._[1] === 'wizard')) {
+    utils.display(`Current account: ${argv.account}`);
+  }
+  utils.display('');
+
+  return Promise.resolve();
 };
 
 module.exports = handler;

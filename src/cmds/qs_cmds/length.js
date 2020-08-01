@@ -23,7 +23,6 @@ const displayResults = (results) => {
   }
 };
 
-
 const handle = (queues, env) => getQueueLength(queues, env)
   // .then((results) => { console.dir(results); return results; })
   .then((results) => displayResults(results))
