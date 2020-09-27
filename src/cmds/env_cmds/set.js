@@ -1,6 +1,8 @@
+const _ = require('lodash');
 const utils = require('../../../lib/utils');
 
 const handle = (env) => utils.listEnvs()
+  .then((envs) => _.union(envs, ['default']))
   .then((envs) => envs.indexOf(env) > -1)
   .then((exists) => (exists ? utils.setDefaultEnv(env) : Promise.reject()))
   .then(() => utils.display('Environment updated successfully.'))

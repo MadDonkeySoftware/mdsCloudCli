@@ -4,7 +4,13 @@ const utils = require('../../../lib/utils');
 
 const deleteContainer = (containerOrFile, env) => utils.getEnvConfig(env)
   .then((conf) => {
-    mdsSdk.initialize({ fsUrl: conf.fsUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      fsUrl: conf.fsUrl,
+    });
     const client = mdsSdk.getFileServiceClient();
     return client.deleteContainerOrPath(containerOrFile);
   });

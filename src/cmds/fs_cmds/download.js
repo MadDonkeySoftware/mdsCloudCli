@@ -2,18 +2,39 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const uploadToContainer = (containerPath, env) => utils.getEnvConfig(env)
+const mapPath = (newPath) => {
+  if (!newPath) {
+    return newPath;
+  }
+
+  if (newPath[0] === '.') {
+    return newPath.replace('.', process.cwd());
+  }
+
+  return newPath;
+};
+
+const uploadToContainer = (containerPath, dest, env) => utils.getEnvConfig(env)
   .then((conf) => {
-    mdsSdk.initialize({ fsUrl: conf.fsUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      fsUrl: conf.fsUrl,
+    });
     const client = mdsSdk.getFileServiceClient();
-    return client.downloadFile(containerPath, process.cwd());
+    const destination = (dest
+      ? mapPath(dest)
+      : process.cwd());
+    return client.downloadFile(containerPath, destination);
   });
 
-const handle = (argv) => uploadToContainer(argv.containerPath, argv.env)
+const handle = (argv) => uploadToContainer(argv.orid, argv.dest, argv.env)
   .then(() => utils.display('File downloaded successfully'))
   .catch((err) => utils.display(`An error occurred while downloading the file. Message: ${err.message}`));
 
-exports.command = 'download <containerPath>';
+exports.command = 'download <orid> [dest]';
 exports.desc = 'Download a file from the specified container path';
 exports.builder = utils.extendBaseCommandBuilder();
 exports.handler = (argv) => handle(argv);

@@ -4,16 +4,23 @@ const utils = require('../../../lib/utils');
 
 const getMachines = (env) => utils.getEnvConfig(env)
   .then((conf) => {
-    const client = mdsSdk.getStateMachineServiceClient(conf.smUrl);
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      smUrl: conf.smUrl,
+    });
+    const client = mdsSdk.getStateMachineServiceClient();
     return client.listStateMachines();
   });
 
 const printResult = (machines) => {
   if (machines) {
-    const headers = ['Id', 'Name', 'Active Version'];
+    const headers = ['Orid', 'Name', 'Active Version'];
     const rows = [];
     machines.forEach((machine) => {
-      rows.push([machine.id, machine.name, machine.active_version]);
+      rows.push([machine.orid, machine.name, machine.active_version]);
     });
 
     utils.displayTable(rows, headers);

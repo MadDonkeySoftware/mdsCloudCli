@@ -2,18 +2,17 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getFunctions = (env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    const client = mdsSdk.getServerlessFunctionsClient(conf.sfUrl);
-    return client.listFunctions();
-  });
+const getFunctions = () => {
+  const client = mdsSdk.getServerlessFunctionsClient();
+  return client.listFunctions();
+};
 
 const printResult = (functions) => {
   if (functions) {
-    const headers = ['Id', 'Name', 'ORID'];
+    const headers = ['Name', 'ORID'];
     const rows = [];
     functions.forEach((func) => {
-      rows.push([func.id, func.name, func.orid]);
+      rows.push([func.name, func.orid]);
     });
 
     utils.displayTable(rows, headers);
@@ -41,4 +40,4 @@ const handle = (env) => getFunctions(env)
 exports.command = 'list';
 exports.desc = 'Get the list of available serverless functions';
 exports.builder = utils.extendBaseCommandBuilder();
-exports.handler = (argv) => handle(argv.env);
+exports.handler = () => handle();

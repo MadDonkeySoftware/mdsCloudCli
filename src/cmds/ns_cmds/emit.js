@@ -4,17 +4,24 @@ const utils = require('../../../lib/utils');
 
 const handle = (argv) => utils.getEnvConfig(argv.env)
   .then((conf) => {
-    mdsSdk.initialize({ nsUrl: conf.nsUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      nsUrl: conf.nsUrl,
+    });
     const client = mdsSdk.getNotificationServiceClient();
     const data = argv.dataFormat === 'json' ? JSON.parse(argv.data) : argv.data;
-    client.emit(argv.topic, data)
+    return client.emit(argv.topic, data)
       .then((err) => {
         if (err) {
           utils.display(`${err}`);
         }
-        client.close();
-      });
-  });
+      })
+      .finally(() => client.close());
+  })
+  .catch((err) => utils.display(`There was an issue emitting your message: ${err.message}`));
 
 exports.command = 'emit <topic> [data]';
 exports.desc = 'Emits a notification with the specified body';

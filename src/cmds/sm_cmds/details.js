@@ -4,7 +4,13 @@ const utils = require('../../../lib/utils');
 
 const getQueues = (id, env) => utils.getEnvConfig(env)
   .then((conf) => {
-    mdsSdk.initialize({ smUrl: conf.smUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      smUrl: conf.smUrl,
+    });
     const client = mdsSdk.getStateMachineServiceClient();
     return client.getStateMachine(id);
   });

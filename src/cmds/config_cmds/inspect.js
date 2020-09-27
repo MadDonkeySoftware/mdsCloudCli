@@ -1,16 +1,25 @@
+const _ = require('lodash');
 const utils = require('../../../lib/utils');
 
 const handle = (key, env) => {
-  if (key !== 'all' && !utils.CONFIG_KEYS.includes(key)) {
-    return Promise.resolve(utils.display(`"${key}" key not understood. Expected: ${utils.CONFIG_KEYS.join(', ')}`));
+  if (key !== 'all' && !_.find(utils.CONFIG_ELEMENTS, (e) => e.key === key)) {
+    return Promise.resolve(utils.display(
+      `"${key}" key not understood. Expected: ${_.map(utils.CONFIG_ELEMENTS, 'key').join(', ')}`));
   }
 
   return utils.getEnvConfig(env)
     .then((settings) => {
       if (key === 'all') {
         const rows = [];
-        utils.CONFIG_KEYS.forEach((k) => {
-          rows.push([utils.CONFIG_KEY_DESCRIPTIONS[k], settings[k] || '']);
+        const configElements = _.sortBy(utils.CONFIG_ELEMENTS, 'displayOrder');
+        configElements.forEach((e) => {
+          let value;
+          if (e.key === 'password') {
+            value = settings[e.key] ? '***' : '';
+          } else {
+            value = settings[e.key] || '';
+          }
+          rows.push([e.display, value]);
         });
         utils.displayTable(rows, ['Setting', 'Value']);
       } else {
@@ -20,6 +29,6 @@ const handle = (key, env) => {
 };
 
 exports.command = 'inspect <key>';
-exports.desc = `Inspects a config detail. Valid keys: ${[...utils.CONFIG_KEYS, 'all'].join(', ')}`;
+exports.desc = `Inspects a config detail. Valid keys: ${[..._.map(utils.CONFIG_ELEMENTS, 'key'), 'all'].join(', ')}`;
 exports.builder = utils.extendBaseCommandBuilder();
 exports.handler = (argv) => handle(argv.key, argv.env);
