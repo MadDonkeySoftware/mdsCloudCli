@@ -5,7 +5,14 @@ const utils = require('../../../lib/utils');
 
 const invokeFunction = (argv) => utils.getEnvConfig(argv.env)
   .then((conf) => {
-    const client = mdsSdk.getServerlessFunctionsClient(conf.sfUrl);
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      sfUrl: conf.sfUrl,
+    });
+    const client = mdsSdk.getServerlessFunctionsClient();
     let input;
     switch (argv.inputType) {
       case 'object':

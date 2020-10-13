@@ -9,13 +9,19 @@ const readFile = util.promisify(fs.readFile);
 const createStateMachine = (file, env) => utils.getEnvConfig(env)
   .then((conf) => readFile(file)
     .then((body) => {
-      mdsSdk.initialize({ smUrl: conf.smUrl });
+      mdsSdk.initialize({
+        account: conf.account,
+        userId: conf.userId,
+        password: conf.password,
+        identityUrl: conf.identityUrl,
+        smUrl: conf.smUrl,
+      });
       const client = mdsSdk.getStateMachineServiceClient();
       return client.createStateMachine(body.toString());
     }));
 
 const handle = (file, env) => createStateMachine(file, env)
-  .then((resp) => utils.display(`State machine created successfully. Id: ${resp.uuid}`))
+  .then((resp) => utils.display(`State machine created successfully. Id: ${resp.orid}`))
   .catch((err) => utils.display(`An error occurred wile creating the state machine. ${err.message}`));
 
 exports.command = 'create <file>';

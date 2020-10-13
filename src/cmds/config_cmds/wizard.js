@@ -2,27 +2,22 @@ const _ = require('lodash');
 const prompts = require('prompts');
 const utils = require('../../../lib/utils');
 
-const getPrompt = (key) => {
-  switch (key) {
-    case 'account':
-      return 'Enter your account number';
-    default:
-      return `Enter url for the ${utils.CONFIG_KEY_DESCRIPTIONS[key]}`;
-  }
-};
+const getPrompt = (element) => (element.isUrl
+  ? `Enter url for the ${element.display}`
+  : `Enter your ${element.display}`);
 
 const handle = (env) => {
-  const removeTrailingSlash = (state) => (state.value.endsWith('/')
+  const removeTrailingSlash = (state) => (typeof state.value === 'string' && state.value.endsWith('/')
     ? state.value.substr(0, state.value.length - 1)
     : state.value);
 
   return utils.getEnvConfig(env).then((oldConfig) => {
-    const configKeys = _.sortBy(utils.CONFIG_KEYS);
-    const query = configKeys.map((key) => ({
-      name: key,
-      message: getPrompt(key),
-      type: 'text',
-      initial: oldConfig[key],
+    const configElements = _.sortBy(utils.CONFIG_ELEMENTS, 'displayOrder');
+    const query = configElements.map((e) => ({
+      name: e.key,
+      message: getPrompt(e),
+      type: e.promptType,
+      initial: oldConfig ? oldConfig[e.key] : '',
       onState: removeTrailingSlash,
     }));
 

@@ -4,7 +4,13 @@ const utils = require('../../../lib/utils');
 
 const deleteFunction = (id, env) => utils.getEnvConfig(env)
   .then((conf) => {
-    mdsSdk.initialize({ sfUrl: conf.sfUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      sfUrl: conf.sfUrl,
+    });
     const client = mdsSdk.getServerlessFunctionsClient();
     return client.deleteFunction(id);
   });

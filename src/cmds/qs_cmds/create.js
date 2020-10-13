@@ -4,13 +4,23 @@ const utils = require('../../../lib/utils');
 
 const createQueue = (name, resource, env) => utils.getEnvConfig(env)
   .then((conf) => {
-    mdsSdk.initialize({ qsUrl: conf.qsUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      qsUrl: conf.qsUrl,
+    });
     const client = mdsSdk.getQueueServiceClient();
     return client.createQueue(name, { resource });
   });
 
+const printResults = (results) => {
+  utils.display(`Queue created successfully. ${results.orid}`);
+};
+
 const handle = (queue, resource, env) => createQueue(queue, resource, env)
-  .then(() => utils.display('Queue created successfully.'))
+  .then((result) => printResults(result))
   .catch((err) => utils.display(`An error occurred while creating the queue. ${err.message}`));
 
 exports.command = 'create <queue>';

@@ -4,7 +4,13 @@ const utils = require('../../../lib/utils');
 
 const updateQueue = ({ queue, resource, env }) => utils.getEnvConfig(env)
   .then((conf) => {
-    mdsSdk.initialize({ qsUrl: conf.qsUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      qsUrl: conf.qsUrl,
+    });
     const client = mdsSdk.getQueueServiceClient();
     return client.updateQueue(queue, { resource });
   });

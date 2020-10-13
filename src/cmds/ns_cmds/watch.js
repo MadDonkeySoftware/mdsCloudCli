@@ -5,7 +5,13 @@ const utils = require('../../../lib/utils');
 
 const handle = (argv) => utils.getEnvConfig(argv.env)
   .then((conf) => {
-    mdsSdk.initialize({ nsUrl: conf.nsUrl });
+    mdsSdk.initialize({
+      account: conf.account,
+      userId: conf.userId,
+      password: conf.password,
+      identityUrl: conf.identityUrl,
+      nsUrl: conf.nsUrl,
+    });
     const client = mdsSdk.getNotificationServiceClient();
 
     utils.display(`Watching for events on topics: ${argv.topics.join(', ')}`);
