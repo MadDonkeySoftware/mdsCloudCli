@@ -2,18 +2,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getQueueDetails = (name, env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      qsUrl: conf.qsUrl,
-    });
-    const client = mdsSdk.getQueueServiceClient();
-    return client.getQueueDetails(name);
-  });
+const getQueueDetails = (name) => {
+  const client = mdsSdk.getQueueServiceClient();
+  return client.getQueueDetails(name);
+};
 
 const printResult = (metadata) => {
   if (metadata) {

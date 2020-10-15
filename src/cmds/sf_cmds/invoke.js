@@ -3,27 +3,19 @@ const VError = require('verror');
 
 const utils = require('../../../lib/utils');
 
-const invokeFunction = (argv) => utils.getEnvConfig(argv.env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      sfUrl: conf.sfUrl,
-    });
-    const client = mdsSdk.getServerlessFunctionsClient();
-    let input;
-    switch (argv.inputType) {
-      case 'object':
-        input = JSON.parse(argv.input);
-        break;
-      default:
-        input = argv.input;
-        break;
-    }
-    return client.invokeFunction(argv.id, input, argv.runAsync);
-  });
+const invokeFunction = (argv) => {
+  const client = mdsSdk.getServerlessFunctionsClient();
+  let input;
+  switch (argv.inputType) {
+    case 'object':
+      input = JSON.parse(argv.input);
+      break;
+    default:
+      input = argv.input;
+      break;
+  }
+  return client.invokeFunction(argv.id, input, argv.runAsync);
+};
 
 const handleOutput = (resp, argv) => {
   if (argv.runAsync) {

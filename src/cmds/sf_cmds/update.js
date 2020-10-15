@@ -3,18 +3,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const updateFunction = (argv) => utils.getEnvConfig(argv.env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      sfUrl: conf.sfUrl,
-    });
-    const client = mdsSdk.getServerlessFunctionsClient();
-    return client.updateFunctionCode(argv.id, argv.runtime, argv.entryPoint, argv.source);
-  });
+const updateFunction = (argv) => {
+  const client = mdsSdk.getServerlessFunctionsClient();
+  return client.updateFunctionCode(argv.id, argv.runtime, argv.entryPoint, argv.source);
+};
 
 const handle = (argv) => updateFunction(argv)
   .then((resp) => utils.display(`Function updated successfully.${os.EOL}${utils.stringifyForDisplay(resp)}`))

@@ -3,29 +3,21 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const handle = (argv) => utils.getEnvConfig(argv.env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      nsUrl: conf.nsUrl,
-    });
-    const client = mdsSdk.getNotificationServiceClient();
+const handle = (argv) => {
+  const client = mdsSdk.getNotificationServiceClient();
 
-    utils.display(`Watching for events on topics: ${argv.topics.join(', ')}`);
-    _.forEach(argv.topics, (topic) => {
-      client.on(topic, (data) => {
-        utils.display(utils.stringifyForDisplay(data));
-      });
-    });
-
-    process.on('SIGINT', () => {
-      client.close();
-      process.exit();
+  utils.display(`Watching for events on topics: ${argv.topics.join(', ')}`);
+  _.forEach(argv.topics, (topic) => {
+    client.on(topic, (data) => {
+      utils.display(utils.stringifyForDisplay(data));
     });
   });
+
+  process.on('SIGINT', () => {
+    client.close();
+    process.exit();
+  });
+};
 
 exports.command = 'watch [topics..]';
 exports.desc = 'Watches a list of topics for events and displays them to the console';

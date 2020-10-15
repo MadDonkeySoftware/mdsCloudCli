@@ -2,18 +2,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const createContainer = (name, env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      fsUrl: conf.fsUrl,
-    });
-    const client = mdsSdk.getFileServiceClient();
-    return client.createContainer(name);
-  });
+const createContainer = (name) => {
+  const client = mdsSdk.getFileServiceClient();
+  return client.createContainer(name);
+};
 
 const handle = (name, env) => createContainer(name, env)
   .then(() => utils.display('Container created successfully.'))

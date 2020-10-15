@@ -2,18 +2,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const uploadToContainer = (containerPath, filePath, env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      fsUrl: conf.fsUrl,
-    });
-    const client = mdsSdk.getFileServiceClient();
-    return client.uploadFile(containerPath, filePath);
-  });
+const uploadToContainer = (containerPath, filePath) => {
+  const client = mdsSdk.getFileServiceClient();
+  return client.uploadFile(containerPath, filePath);
+};
 
 const handle = (argv) => uploadToContainer(argv.orid, argv.localFilePath, argv.env)
   .then(() => utils.display('File uploaded successfully'))

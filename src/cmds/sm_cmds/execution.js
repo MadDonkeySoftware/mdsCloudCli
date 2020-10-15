@@ -1,18 +1,10 @@
 const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 const utils = require('../../../lib/utils');
 
-const getDetails = ({ id, env }) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      smUrl: conf.smUrl,
-    });
-    const client = mdsSdk.getStateMachineServiceClient();
-    return client.getDetailsForExecution(id);
-  });
+const getDetails = ({ id }) => {
+  const client = mdsSdk.getStateMachineServiceClient();
+  return client.getDetailsForExecution(id);
+};
 
 const operationSorter = (a, b) => new Date(a.created) - new Date(b.created);
 

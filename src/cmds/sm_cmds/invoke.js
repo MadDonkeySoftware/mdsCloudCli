@@ -19,19 +19,11 @@ const generateBody = (data) => {
   return Promise.resolve(data);
 };
 
-const invokeStateMachine = ({ id, data, env }) => utils.getEnvConfig(env)
-  .then((conf) => generateBody(data)
-    .then((body) => {
-      mdsSdk.initialize({
-        account: conf.account,
-        userId: conf.userId,
-        password: conf.password,
-        identityUrl: conf.identityUrl,
-        smUrl: conf.smUrl,
-      });
-      const client = mdsSdk.getStateMachineServiceClient();
-      return client.invokeStateMachine(id, body);
-    }));
+const invokeStateMachine = ({ id, data }) => generateBody(data)
+  .then((body) => {
+    const client = mdsSdk.getStateMachineServiceClient();
+    return client.invokeStateMachine(id, body);
+  });
 
 const operationSorter = (a, b) => new Date(a.created) - new Date(b.created);
 

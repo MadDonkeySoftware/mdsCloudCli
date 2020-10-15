@@ -14,21 +14,13 @@ const mapPath = (newPath) => {
   return newPath;
 };
 
-const uploadToContainer = (containerPath, dest, env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      fsUrl: conf.fsUrl,
-    });
-    const client = mdsSdk.getFileServiceClient();
-    const destination = (dest
-      ? mapPath(dest)
-      : process.cwd());
-    return client.downloadFile(containerPath, destination);
-  });
+const uploadToContainer = (containerPath, dest) => {
+  const client = mdsSdk.getFileServiceClient();
+  const destination = (dest
+    ? mapPath(dest)
+    : process.cwd());
+  return client.downloadFile(containerPath, destination);
+};
 
 const handle = (argv) => uploadToContainer(argv.orid, argv.dest, argv.env)
   .then(() => utils.display('File downloaded successfully'))
