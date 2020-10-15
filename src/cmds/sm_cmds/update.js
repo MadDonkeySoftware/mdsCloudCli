@@ -6,19 +6,11 @@ const utils = require('../../../lib/utils');
 
 const readFile = util.promisify(fs.readFile);
 
-const updateStateMachine = ({ id, file, env }) => utils.getEnvConfig(env)
-  .then((conf) => readFile(file)
-    .then((body) => {
-      mdsSdk.initialize({
-        account: conf.account,
-        userId: conf.userId,
-        password: conf.password,
-        identityUrl: conf.identityUrl,
-        smUrl: conf.smUrl,
-      });
-      const client = mdsSdk.getStateMachineServiceClient();
-      return client.updateStateMachine(id, body.toString());
-    }));
+const updateStateMachine = ({ id, file }) => readFile(file)
+  .then((body) => {
+    const client = mdsSdk.getStateMachineServiceClient();
+    return client.updateStateMachine(id, body.toString());
+  });
 
 const handle = (argv) => updateStateMachine(argv)
   .then((details) => utils.display(`State machine ${details.orid} successfully updated.`))

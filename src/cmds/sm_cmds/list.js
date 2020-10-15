@@ -2,18 +2,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getMachines = (env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      smUrl: conf.smUrl,
-    });
-    const client = mdsSdk.getStateMachineServiceClient();
-    return client.listStateMachines();
-  });
+const getMachines = () => {
+  const client = mdsSdk.getStateMachineServiceClient();
+  return client.listStateMachines();
+};
 
 const printResult = (machines) => {
   if (machines) {

@@ -2,18 +2,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const deleteFunction = (id, env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      sfUrl: conf.sfUrl,
-    });
-    const client = mdsSdk.getServerlessFunctionsClient();
-    return client.deleteFunction(id);
-  });
+const deleteFunction = (id) => {
+  const client = mdsSdk.getServerlessFunctionsClient();
+  return client.deleteFunction(id);
+};
 
 const handle = (id, env) => deleteFunction(id, env)
   .then((resp) => utils.display(`Function removed successfully. Id: ${resp.id}`))

@@ -2,18 +2,10 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const deleteQueue = (name, env) => utils.getEnvConfig(env)
-  .then((conf) => {
-    mdsSdk.initialize({
-      account: conf.account,
-      userId: conf.userId,
-      password: conf.password,
-      identityUrl: conf.identityUrl,
-      qsUrl: conf.qsUrl,
-    });
-    const client = mdsSdk.getQueueServiceClient();
-    return client.deleteQueue(name);
-  });
+const deleteQueue = (name) => {
+  const client = mdsSdk.getQueueServiceClient();
+  return client.deleteQueue(name);
+};
 
 const handle = (queue, env) => deleteQueue(queue, env)
   .then(() => utils.display('Queue removed successfully.'))

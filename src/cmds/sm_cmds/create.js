@@ -6,19 +6,11 @@ const utils = require('../../../lib/utils');
 
 const readFile = util.promisify(fs.readFile);
 
-const createStateMachine = (file, env) => utils.getEnvConfig(env)
-  .then((conf) => readFile(file)
-    .then((body) => {
-      mdsSdk.initialize({
-        account: conf.account,
-        userId: conf.userId,
-        password: conf.password,
-        identityUrl: conf.identityUrl,
-        smUrl: conf.smUrl,
-      });
-      const client = mdsSdk.getStateMachineServiceClient();
-      return client.createStateMachine(body.toString());
-    }));
+const createStateMachine = (file) => readFile(file)
+  .then((body) => {
+    const client = mdsSdk.getStateMachineServiceClient();
+    return client.createStateMachine(body.toString());
+  });
 
 const handle = (file, env) => createStateMachine(file, env)
   .then((resp) => utils.display(`State machine created successfully. Id: ${resp.orid}`))
