@@ -6,7 +6,6 @@ const VError = require('verror');
 const utils = require('../../../lib/utils');
 
 const getPasswords = (argv) => {
-
   if (argv.password) {
     const questions = [
       {

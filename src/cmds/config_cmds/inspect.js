@@ -4,7 +4,8 @@ const utils = require('../../../lib/utils');
 const handle = (key, env) => {
   if (key !== 'all' && !_.find(utils.CONFIG_ELEMENTS, (e) => e.key === key)) {
     return Promise.resolve(utils.display(
-      `"${key}" key not understood. Expected: ${_.map(utils.CONFIG_ELEMENTS, 'key').join(', ')}`));
+      `"${key}" key not understood. Expected: ${_.map(utils.CONFIG_ELEMENTS, 'key').join(', ')}`,
+    ));
   }
 
   return utils.getEnvConfig(env)

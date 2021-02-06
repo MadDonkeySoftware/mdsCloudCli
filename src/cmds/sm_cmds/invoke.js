@@ -47,7 +47,6 @@ const watchOutput = (env, orid, watchInterval) => new Promise((resolve, reject) 
           const latestOperation = orderedOperations[orderedOperations.length - 1];
 
           if (status === 'Succeeded' || status === 'Failed') {
-
             utils.display('');
             utils.display(`Execution: ${status}`);
             utils.display(`Output: ${utils.stringifyForDisplay(latestOperation.output)}`);
