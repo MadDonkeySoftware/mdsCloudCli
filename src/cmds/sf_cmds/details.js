@@ -11,12 +11,14 @@ const printResult = (details) => {
   if (details) {
     utils.display(JSON.stringify(details, null, '  '));
   } else {
-    utils.display('An error occurred while requesting the details of the function.');
+    utils.display(
+      'An error occurred while requesting the details of the function.'
+    );
   }
 };
 
-const handle = (id, env) => getFunction(id, env)
-  .then((details) => printResult(details));
+const handle = (id, env) =>
+  getFunction(id, env).then((details) => printResult(details));
 
 exports.command = 'details <id>';
 exports.desc = 'Get the details for the specified state machine';

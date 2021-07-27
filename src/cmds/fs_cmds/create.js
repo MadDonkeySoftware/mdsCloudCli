@@ -7,9 +7,14 @@ const createContainer = (name) => {
   return client.createContainer(name);
 };
 
-const handle = (name, env) => createContainer(name, env)
-  .then(() => utils.display('Container created successfully.'))
-  .catch((err) => utils.display(`An error occurred while creating the container. Message: ${err.message}`));
+const handle = (name, env) =>
+  createContainer(name, env)
+    .then(() => utils.display('Container created successfully.'))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while creating the container. Message: ${err.message}`
+      )
+    );
 
 exports.command = 'create <container>';
 exports.desc = 'Creates a new container';

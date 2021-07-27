@@ -7,9 +7,14 @@ const deleteQueue = (name) => {
   return client.deleteQueue(name);
 };
 
-const handle = (queue, env) => deleteQueue(queue, env)
-  .then(() => utils.display('Queue removed successfully.'))
-  .catch((err) => utils.display(`An error occurred while removing the queue. ${err.message}`));
+const handle = (queue, env) =>
+  deleteQueue(queue, env)
+    .then(() => utils.display('Queue removed successfully.'))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while removing the queue. ${err.message}`
+      )
+    );
 
 exports.command = 'delete <queue>';
 exports.desc = 'Removes a queue';

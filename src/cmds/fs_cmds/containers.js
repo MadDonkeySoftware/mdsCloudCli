@@ -31,9 +31,10 @@ const sorter = (a, b) => {
   return 0;
 };
 
-const handle = () => getContainers()
-  .then((containers) => containers.sort(sorter))
-  .then((containers) => printResult(containers));
+const handle = () =>
+  getContainers()
+    .then((containers) => containers.sort(sorter))
+    .then((containers) => printResult(containers));
 
 exports.command = 'containers';
 exports.desc = 'Get the list of available containers';

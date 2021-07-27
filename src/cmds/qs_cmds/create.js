@@ -11,9 +11,14 @@ const printResults = (results) => {
   utils.display(`Queue created successfully. ${results.orid}`);
 };
 
-const handle = ({ queue, resource, dlq }) => createQueue({ queue, resource, dlq })
-  .then((result) => printResults(result))
-  .catch((err) => utils.display(`An error occurred while creating the queue. ${err.message}`));
+const handle = ({ queue, resource, dlq }) =>
+  createQueue({ queue, resource, dlq })
+    .then((result) => printResults(result))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while creating the queue. ${err.message}`
+      )
+    );
 
 exports.command = 'create <queue>';
 exports.desc = 'Creates a new queue';
@@ -24,7 +29,7 @@ exports.builder = utils.extendBaseCommandBuilder({
   },
   dlq: {
     default: null,
-    desc: 'ORID of queue to place message in if resource invoke fails'
+    desc: 'ORID of queue to place message in if resource invoke fails',
   },
 });
 exports.handler = (argv) => handle(argv);

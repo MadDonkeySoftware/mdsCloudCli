@@ -20,6 +20,7 @@ const handle = (argv) => {
 };
 
 exports.command = 'watch [topics..]';
-exports.desc = 'Watches a list of topics for events and displays them to the console';
+exports.desc =
+  'Watches a list of topics for events and displays them to the console';
 exports.builder = utils.extendBaseCommandBuilder();
 exports.handler = (argv) => handle(argv);

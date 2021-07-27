@@ -5,18 +5,20 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 const utils = require('../../lib/utils');
 const registerUser = require('../../lib/register-user');
 
-const removeTrailingSlash = (state) => (typeof state.value === 'string' && state.value.endsWith('/')
-  ? state.value.substr(0, state.value.length - 1)
-  : state.value);
+const removeTrailingSlash = (state) =>
+  typeof state.value === 'string' && state.value.endsWith('/')
+    ? state.value.substr(0, state.value.length - 1)
+    : state.value;
 
-const getPrompt = (element) => (element.isUrl
-  ? `Enter url for the ${element.display}`
-  : `Enter your ${element.display}`);
+const getPrompt = (element) =>
+  element.isUrl
+    ? `Enter url for the ${element.display}`
+    : `Enter your ${element.display}`;
 
 const getEnvUrls = () => {
   const configElements = _.sortBy(
     _.filter(utils.CONFIG_ELEMENTS, (e) => e.isUrl && e.key !== 'identityUrl'),
-    'displayOrder',
+    'displayOrder'
   );
   const query = configElements.map((e) => ({
     name: e.key,
@@ -28,9 +30,11 @@ const getEnvUrls = () => {
   return prompts(query);
 };
 
-const isEnvAlreadyConfigured = () => utils.listEnvs()
-  .then((envs) => envs.length > 0)
-  .catch(() => false);
+const isEnvAlreadyConfigured = () =>
+  utils
+    .listEnvs()
+    .then((envs) => envs.length > 0)
+    .catch(() => false);
 
 const configureIdentity = () => {
   const questions = [
@@ -54,11 +58,12 @@ const configureIdentity = () => {
         allowSelfSignCert: answers.allowSelfSignCert,
       });
       const client = mdsSdk.getIdentityServiceClient();
-      return client.getPublicSignature()
-        .then(() => answers.identityUrl);
+      return client.getPublicSignature().then(() => answers.identityUrl);
     })
     .catch((err) => {
-      utils.display('It appears that the url entered is incorrect or not responsive.');
+      utils.display(
+        'It appears that the url entered is incorrect or not responsive.'
+      );
       throw err;
     });
 };
@@ -67,7 +72,9 @@ const handle = async (argv) => {
   try {
     const isConfigured = await isEnvAlreadyConfigured();
     if (isConfigured) {
-      utils.display('Environment appears to already be configured. Use the config and/or env sub-command instead.');
+      utils.display(
+        'Environment appears to already be configured. Use the config and/or env sub-command instead.'
+      );
     } else {
       const identityUrl = await configureIdentity();
       const registrationAnswers = await registerUser.run();
@@ -80,11 +87,17 @@ const handle = async (argv) => {
         ...envUrls,
       });
       await utils.setDefaultEnv(argv.env);
-      utils.display('Congratulations! You are now ready to start using this MDS Cloud install!');
+      utils.display(
+        'Congratulations! You are now ready to start using this MDS Cloud install!'
+      );
     }
   } catch (err) {
-    utils.display('An error occurred running setup. Please clear the errors and try again.');
-    utils.display('If the problem persists reach out to your support personnel.');
+    utils.display(
+      'An error occurred running setup. Please clear the errors and try again.'
+    );
+    utils.display(
+      'If the problem persists reach out to your support personnel.'
+    );
   }
 };
 

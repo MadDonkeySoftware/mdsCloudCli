@@ -3,17 +3,29 @@ const VError = require('verror');
 const utils = require('../../../lib/utils');
 const registerUser = require('../../../lib/register-user');
 
-const ensureCanRun = () => mdsSdk.getIdentityServiceClient().getPublicSignature()
-  .then((data) => !!data);
+const ensureCanRun = () =>
+  mdsSdk
+    .getIdentityServiceClient()
+    .getPublicSignature()
+    .then((data) => !!data);
 
 const handleResponse = (resp) => {
-  utils.display(`Registration successful! Your account ID is: ${resp.accountId}`);
+  utils.display(
+    `Registration successful! Your account ID is: ${resp.accountId}`
+  );
 };
 
-const handle = () => ensureCanRun()
-  .then(registerUser.run)
-  .then(handleResponse)
-  .catch((err) => utils.display(`An error occurred while registering: ${err.message}.${utils.stringifyForDisplay(VError.info(err))}`));
+const handle = () =>
+  ensureCanRun()
+    .then(registerUser.run)
+    .then(handleResponse)
+    .catch((err) =>
+      utils.display(
+        `An error occurred while registering: ${
+          err.message
+        }.${utils.stringifyForDisplay(VError.info(err))}`
+      )
+    );
 
 exports.command = 'register';
 exports.desc = 'Collects and writes all config details.';

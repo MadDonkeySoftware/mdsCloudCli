@@ -11,14 +11,21 @@ const operationSorter = (a, b) => new Date(a.created) - new Date(b.created);
 const handleOutput = (details) => {
   const { operations } = details;
   const orderedOperations = operations.sort(operationSorter);
-  utils.display(utils.stringifyForDisplay({ ...details, operations: orderedOperations }));
+  utils.display(
+    utils.stringifyForDisplay({ ...details, operations: orderedOperations })
+  );
 
   return Promise.resolve();
 };
 
-const handle = (argv) => getDetails(argv)
-  .then((details) => handleOutput(details, argv))
-  .catch((err) => utils.display(`An error occurred while getting the execution details. ${err.message}`));
+const handle = (argv) =>
+  getDetails(argv)
+    .then((details) => handleOutput(details, argv))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while getting the execution details. ${err.message}`
+      )
+    );
 
 exports.command = 'execution <id>';
 exports.desc = 'Gets the details of an execution.';

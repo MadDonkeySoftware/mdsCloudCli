@@ -15,8 +15,8 @@ const printResult = (machine) => {
   }
 };
 
-const handle = (id, env) => deleteStateMachine(id, env)
-  .then((response) => printResult(response));
+const handle = (id, env) =>
+  deleteStateMachine(id, env).then((response) => printResult(response));
 
 exports.command = 'delete <id>';
 exports.desc = 'Deletes the specified state machine';

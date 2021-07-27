@@ -25,9 +25,16 @@ const handleOutput = (resp, argv) => {
   }
 };
 
-const handle = (argv) => invokeFunction(argv)
-  .then((resp) => handleOutput(resp, argv))
-  .catch((err) => utils.display(`An error occurred while invoking the function. ${utils.stringifyForDisplay(VError.info(err))}`));
+const handle = (argv) =>
+  invokeFunction(argv)
+    .then((resp) => handleOutput(resp, argv))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while invoking the function. ${utils.stringifyForDisplay(
+          VError.info(err)
+        )}`
+      )
+    );
 
 exports.command = 'invoke <id> [data]';
 exports.desc = 'Invokes an execution of a state machine.';
