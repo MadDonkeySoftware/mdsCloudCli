@@ -5,13 +5,16 @@ const utils = require('../../../lib/utils');
 const handle = (argv) => {
   const client = mdsSdk.getNotificationServiceClient();
   const data = argv.dataFormat === 'json' ? JSON.parse(argv.data) : argv.data;
-  return client.emit(argv.topic, data)
+  return client
+    .emit(argv.topic, data)
     .then((err) => {
       if (err) {
         utils.display(`${err}`);
       }
     })
-    .catch((err) => utils.display(`There was an issue emitting your message: ${err.message}`))
+    .catch((err) =>
+      utils.display(`There was an issue emitting your message: ${err.message}`)
+    )
     .finally(() => client.close());
 };
 

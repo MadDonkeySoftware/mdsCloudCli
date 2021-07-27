@@ -6,7 +6,6 @@ const VError = require('verror');
 const utils = require('../../../lib/utils');
 
 const getPasswords = (argv) => {
-
   if (argv.password) {
     const questions = [
       {
@@ -27,14 +26,13 @@ const getPasswords = (argv) => {
     ];
 
     // return utils.getEnvConfig().then(console.dir).then(() => prompts(questions))
-    return prompts(questions)
-      .then((answers) => {
-        if (answers.password !== answers.password2) {
-          throw new Error('Passwords did not match.');
-        }
+    return prompts(questions).then((answers) => {
+      if (answers.password !== answers.password2) {
+        throw new Error('Passwords did not match.');
+      }
 
-        return _.merge({}, argv, { password: answers.password });
-      });
+      return _.merge({}, argv, { password: answers.password });
+    });
   }
   return Promise.resolve(argv);
 };
@@ -49,10 +47,17 @@ const updateIdentity = (info) => {
   });
 };
 
-const handle = (argv) => getPasswords(argv)
-  .then(updateIdentity)
-  .then(() => utils.display('User updated successfully.'))
-  .catch((err) => utils.display(`An error occurred while updating the user. Message: ${err.message}${utils.stringifyForDisplay(VError.info(err))}`));
+const handle = (argv) =>
+  getPasswords(argv)
+    .then(updateIdentity)
+    .then(() => utils.display('User updated successfully.'))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while updating the user. Message: ${
+          err.message
+        }${utils.stringifyForDisplay(VError.info(err))}`
+      )
+    );
 
 exports.command = 'update';
 exports.desc = 'Updates various aspects of your users information';

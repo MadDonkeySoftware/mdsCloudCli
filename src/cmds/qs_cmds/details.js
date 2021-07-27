@@ -15,8 +15,8 @@ const printResult = (metadata) => {
   }
 };
 
-const handle = (queue, env) => getQueueDetails(queue, env)
-  .then((metadata) => printResult(metadata));
+const handle = (queue, env) =>
+  getQueueDetails(queue, env).then((metadata) => printResult(metadata));
 
 exports.command = 'details <queue>';
 exports.desc = 'Get the details of the <queue> queue';

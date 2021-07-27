@@ -36,8 +36,10 @@ const printResult = (outputMode, metadata) => {
   }
 };
 
-const handle = (argv) => getContainerContents(argv.container, argv.env)
-  .then((metadata) => printResult(argv.outputMode, metadata));
+const handle = (argv) =>
+  getContainerContents(argv.container, argv.env).then((metadata) =>
+    printResult(argv.outputMode, metadata)
+  );
 
 exports.command = 'list <container>';
 exports.desc = 'Get the details of the <container> contents';

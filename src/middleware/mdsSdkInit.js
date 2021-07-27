@@ -9,10 +9,9 @@ const handler = (argv) => {
   }
 
   const env = argv.env || 'default';
-  return utils.getEnvConfig(env)
-    .then((conf) => {
-      mdsSdk.initialize(conf);
-    });
+  return utils.getEnvConfig(env).then((conf) => {
+    mdsSdk.initialize(conf);
+  });
 };
 
 module.exports = handler;

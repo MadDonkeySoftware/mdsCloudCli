@@ -16,15 +16,18 @@ const mapPath = (newPath) => {
 
 const uploadToContainer = (containerPath, dest) => {
   const client = mdsSdk.getFileServiceClient();
-  const destination = (dest
-    ? mapPath(dest)
-    : process.cwd());
+  const destination = dest ? mapPath(dest) : process.cwd();
   return client.downloadFile(containerPath, destination);
 };
 
-const handle = (argv) => uploadToContainer(argv.orid, argv.dest, argv.env)
-  .then(() => utils.display('File downloaded successfully'))
-  .catch((err) => utils.display(`An error occurred while downloading the file. Message: ${err.message}`));
+const handle = (argv) =>
+  uploadToContainer(argv.orid, argv.dest, argv.env)
+    .then(() => utils.display('File downloaded successfully'))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while downloading the file. Message: ${err.message}`
+      )
+    );
 
 exports.command = 'download <orid> [dest]';
 exports.desc = 'Download a file from the specified container path';

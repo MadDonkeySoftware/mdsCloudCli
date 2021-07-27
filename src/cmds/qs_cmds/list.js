@@ -20,8 +20,7 @@ const printResult = (queues) => {
   }
 };
 
-const handle = (env) => getQueues(env)
-  .then((queues) => printResult(queues));
+const handle = (env) => getQueues(env).then((queues) => printResult(queues));
 
 exports.command = 'list';
 exports.desc = 'Get the list of available queues';

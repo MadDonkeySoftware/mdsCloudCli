@@ -5,9 +5,12 @@ const utils = require('../../../lib/utils');
 const getQueueLength = (names) => {
   const client = mdsSdk.getQueueServiceClient();
   return Promise.all(
-    names.map((name) => client.getQueueLength(name)
-      .then((rsp) => ({ name, size: rsp.size }))
-      .catch((err) => ({ name, size: err.message }))),
+    names.map((name) =>
+      client
+        .getQueueLength(name)
+        .then((rsp) => ({ name, size: rsp.size }))
+        .catch((err) => ({ name, size: err.message }))
+    )
   );
 };
 
@@ -21,10 +24,15 @@ const displayResults = (results) => {
   }
 };
 
-const handle = (queues, env) => getQueueLength(queues, env)
-  // .then((results) => { console.dir(results); return results; })
-  .then((results) => displayResults(results))
-  .catch((err) => utils.display(`An error occurred while requesting the queue length. ${err}`));
+const handle = (queues, env) =>
+  getQueueLength(queues, env)
+    // .then((results) => { console.dir(results); return results; })
+    .then((results) => displayResults(results))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while requesting the queue length. ${err}`
+      )
+    );
 
 exports.command = 'length <queues..>';
 exports.desc = 'Get the length of the <queue> queue';

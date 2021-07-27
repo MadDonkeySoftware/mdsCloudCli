@@ -7,9 +7,18 @@ const createFunction = (name) => {
   return client.createFunction(name);
 };
 
-const handle = (name, env) => createFunction(name, env)
-  .then((resp) => utils.display(`Function created successfully. Id: ${resp.orid || resp.id}`))
-  .catch((err) => utils.display(`An error occurred while creating the function. Message: ${err.message}`));
+const handle = (name, env) =>
+  createFunction(name, env)
+    .then((resp) =>
+      utils.display(
+        `Function created successfully. Id: ${resp.orid || resp.id}`
+      )
+    )
+    .catch((err) =>
+      utils.display(
+        `An error occurred while creating the function. Message: ${err.message}`
+      )
+    );
 
 exports.command = 'create <name>';
 exports.desc = 'Creates a new function with the provided name';

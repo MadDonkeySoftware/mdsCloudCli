@@ -7,9 +7,14 @@ const uploadToContainer = (containerPath, filePath) => {
   return client.uploadFile(containerPath, filePath);
 };
 
-const handle = (argv) => uploadToContainer(argv.orid, argv.localFilePath, argv.env)
-  .then(() => utils.display('File uploaded successfully'))
-  .catch((err) => utils.display(`An error occurred while uploading the file. Message: ${err.message}`));
+const handle = (argv) =>
+  uploadToContainer(argv.orid, argv.localFilePath, argv.env)
+    .then(() => utils.display('File uploaded successfully'))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while uploading the file. Message: ${err.message}`
+      )
+    );
 
 exports.command = 'upload <orid> <localFilePath>';
 exports.desc = 'Uploads a file to the specified container and path';

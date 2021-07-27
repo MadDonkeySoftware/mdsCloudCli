@@ -7,9 +7,14 @@ const createPath = (orid, newPath) => {
   return client.createContainerPath(orid, newPath);
 };
 
-const handle = (orid, newPath, env) => createPath(orid, newPath, env)
-  .then(() => utils.display('Container created successfully.'))
-  .catch((err) => utils.display(`An error occurred while creating the container. Message: ${err.message}`));
+const handle = (orid, newPath, env) =>
+  createPath(orid, newPath, env)
+    .then(() => utils.display('Container created successfully.'))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while creating the container. Message: ${err.message}`
+      )
+    );
 
 exports.command = 'createPath <container> <path>';
 exports.desc = 'Creates a new path inside of a container';

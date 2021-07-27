@@ -19,38 +19,42 @@ const generateBody = (data) => {
   return Promise.resolve(data);
 };
 
-const invokeStateMachine = ({ id, data }) => generateBody(data)
-  .then((body) => {
+const invokeStateMachine = ({ id, data }) =>
+  generateBody(data).then((body) => {
     const client = mdsSdk.getStateMachineServiceClient();
     return client.invokeStateMachine(id, body);
   });
 
 const operationSorter = (a, b) => new Date(a.created) - new Date(b.created);
 
-const watchOutput = (env, orid, watchInterval) => new Promise((resolve, reject) => {
-  const client = mdsSdk.getStateMachineServiceClient();
-  const minWatchInterval = 10;
-  let lastState;
-  let interval = watchInterval;
-  if (interval < minWatchInterval) {
-    interval = minWatchInterval;
-    utils.display(`Watch interval must be at least ${minWatchInterval}. Using ${minWatchInterval}.`);
-  }
+const watchOutput = (env, orid, watchInterval) =>
+  new Promise((resolve, reject) => {
+    const client = mdsSdk.getStateMachineServiceClient();
+    const minWatchInterval = 10;
+    let lastState;
+    let interval = watchInterval;
+    if (interval < minWatchInterval) {
+      interval = minWatchInterval;
+      utils.display(
+        `Watch interval must be at least ${minWatchInterval}. Using ${minWatchInterval}.`
+      );
+    }
 
-  const writeUpdate = () => {
-    try {
-      return client.getDetailsForExecution(orid)
-        .then((details) => {
+    const writeUpdate = () => {
+      try {
+        return client.getDetailsForExecution(orid).then((details) => {
           const { status, operations } = details;
           const orderedOperations = operations.sort(operationSorter);
 
-          const latestOperation = orderedOperations[orderedOperations.length - 1];
+          const latestOperation =
+            orderedOperations[orderedOperations.length - 1];
 
           if (status === 'Succeeded' || status === 'Failed') {
-
             utils.display('');
             utils.display(`Execution: ${status}`);
-            utils.display(`Output: ${utils.stringifyForDisplay(latestOperation.output)}`);
+            utils.display(
+              `Output: ${utils.stringifyForDisplay(latestOperation.output)}`
+            );
             resolve();
           } else {
             const newState = latestOperation.stateKey;
@@ -65,18 +69,20 @@ const watchOutput = (env, orid, watchInterval) => new Promise((resolve, reject) 
             setTimeout(writeUpdate, interval * 1000);
           }
         });
-    } catch (err) {
-      return reject(err);
-    }
-  };
+      } catch (err) {
+        return reject(err);
+      }
+    };
 
-  utils.display('');
-  utils.display('States:', true);
-  writeUpdate();
-});
+    utils.display('');
+    utils.display('States:', true);
+    writeUpdate();
+  });
 
 const handleOutput = (details, { env, watch, watchInterval }) => {
-  utils.display(`State machine execution created successfully. Id: ${details.orid}`);
+  utils.display(
+    `State machine execution created successfully. Id: ${details.orid}`
+  );
   if (watch) {
     return watchOutput(env, details.orid, watchInterval);
   }
@@ -84,9 +90,16 @@ const handleOutput = (details, { env, watch, watchInterval }) => {
   return Promise.resolve();
 };
 
-const handle = (argv) => invokeStateMachine(argv)
-  .then((resp) => handleOutput(resp, argv))
-  .catch((err) => utils.display(`An error occurred while invoking the state machine. ${utils.stringifyForDisplay(VError.info(err))}`));
+const handle = (argv) =>
+  invokeStateMachine(argv)
+    .then((resp) => handleOutput(resp, argv))
+    .catch((err) =>
+      utils.display(
+        `An error occurred while invoking the state machine. ${utils.stringifyForDisplay(
+          VError.info(err)
+        )}`
+      )
+    );
 
 exports.command = 'invoke <id> [data]';
 exports.desc = 'Invokes an execution of a state machine.';
