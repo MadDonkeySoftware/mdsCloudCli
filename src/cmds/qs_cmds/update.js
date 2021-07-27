@@ -2,9 +2,9 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const updateQueue = ({ queue, resource }) => {
+const updateQueue = ({ queue, resource, dlq }) => {
   const client = mdsSdk.getQueueServiceClient();
-  return client.updateQueue(queue, { resource });
+  return client.updateQueue(queue, { resource, dlq });
 };
 
 const handle = (argv) => updateQueue(argv)
@@ -17,6 +17,10 @@ exports.builder = utils.extendBaseCommandBuilder({
   resource: {
     default: null,
     desc: 'resource to be invoked upon message being enqueued. Use the string "null" to delete the current value',
+  },
+  dlq: {
+    default: null,
+    desc: 'ORID of queue to place message in if resource invoke fails'
   },
 });
 exports.handler = (argv) => handle(argv);
