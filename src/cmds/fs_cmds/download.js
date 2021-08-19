@@ -25,8 +25,8 @@ const handle = (argv) =>
     .then(() => utils.display('File downloaded successfully'))
     .catch((err) =>
       utils.display(
-        `An error occurred while downloading the file. Message: ${err.message}`
-      )
+        `An error occurred while downloading the file. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'download <orid> [dest]';

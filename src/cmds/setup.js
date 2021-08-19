@@ -18,7 +18,7 @@ const getPrompt = (element) =>
 const getEnvUrls = () => {
   const configElements = _.sortBy(
     _.filter(utils.CONFIG_ELEMENTS, (e) => e.isUrl && e.key !== 'identityUrl'),
-    'displayOrder'
+    'displayOrder',
   );
   const query = configElements.map((e) => ({
     name: e.key,
@@ -62,7 +62,7 @@ const configureIdentity = () => {
     })
     .catch((err) => {
       utils.display(
-        'It appears that the url entered is incorrect or not responsive.'
+        'It appears that the url entered is incorrect or not responsive.',
       );
       throw err;
     });
@@ -73,7 +73,7 @@ const handle = async (argv) => {
     const isConfigured = await isEnvAlreadyConfigured();
     if (isConfigured) {
       utils.display(
-        'Environment appears to already be configured. Use the config and/or env sub-command instead.'
+        'Environment appears to already be configured. Use the config and/or env sub-command instead.',
       );
     } else {
       const identityUrl = await configureIdentity();
@@ -88,15 +88,15 @@ const handle = async (argv) => {
       });
       await utils.setDefaultEnv(argv.env);
       utils.display(
-        'Congratulations! You are now ready to start using this MDS Cloud install!'
+        'Congratulations! You are now ready to start using this MDS Cloud install!',
       );
     }
   } catch (err) {
     utils.display(
-      'An error occurred running setup. Please clear the errors and try again.'
+      'An error occurred running setup. Please clear the errors and try again.',
     );
     utils.display(
-      'If the problem persists reach out to your support personnel.'
+      'If the problem persists reach out to your support personnel.',
     );
   }
 };

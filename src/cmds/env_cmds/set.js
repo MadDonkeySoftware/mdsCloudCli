@@ -10,8 +10,8 @@ const handle = (env) =>
     .then(() => utils.display('Environment updated successfully.'))
     .catch(() =>
       utils.display(
-        'Failed to update environment. Please verify your environment exists with the "list" command.'
-      )
+        'Failed to update environment. Please verify your environment exists with the "list" command.',
+      ),
     );
 
 exports.command = 'set <env>';

@@ -6,8 +6,8 @@ const handle = (key, value, env) => {
   if (!configKeys.includes(key)) {
     return Promise.resolve(
       utils.display(
-        `"${key}" key not understood. Expected: ${configKeys.join(', ')}`
-      )
+        `"${key}" key not understood. Expected: ${configKeys.join(', ')}`,
+      ),
     );
   }
 
@@ -20,7 +20,7 @@ const handle = (key, value, env) => {
 exports.command = 'write <key> <value>';
 exports.desc = `Writes a config detail. Valid keys: ${_.map(
   utils.CONFIG_ELEMENTS,
-  'key'
+  'key',
 ).join(', ')}`;
 exports.builder = utils.extendBaseCommandBuilder();
 exports.handler = (argv) => handle(argv.key, argv.value, argv.env);

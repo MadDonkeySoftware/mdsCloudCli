@@ -9,8 +9,8 @@ const getQueueLength = (names) => {
       client
         .getQueueLength(name)
         .then((rsp) => ({ name, size: rsp.size }))
-        .catch((err) => ({ name, size: err.message }))
-    )
+        .catch((err) => ({ name, size: err.message })),
+    ),
   );
 };
 
@@ -30,8 +30,8 @@ const handle = (queues, env) =>
     .then((results) => displayResults(results))
     .catch((err) =>
       utils.display(
-        `An error occurred while requesting the queue length. ${err}`
-      )
+        `An error occurred while requesting the queue length. ${err}`,
+      ),
     );
 
 exports.command = 'length <queues..>';

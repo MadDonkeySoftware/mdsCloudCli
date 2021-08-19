@@ -11,13 +11,13 @@ const handle = (name, env) =>
   createFunction(name, env)
     .then((resp) =>
       utils.display(
-        `Function created successfully. Id: ${resp.orid || resp.id}`
-      )
+        `Function created successfully. Id: ${resp.orid || resp.id}`,
+      ),
     )
     .catch((err) =>
       utils.display(
-        `An error occurred while creating the function. Message: ${err.message}`
-      )
+        `An error occurred while creating the function. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'create <name>';

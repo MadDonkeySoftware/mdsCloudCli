@@ -55,8 +55,8 @@ const handle = (argv) =>
       utils.display(
         `An error occurred while updating the user. Message: ${
           err.message
-        }${utils.stringifyForDisplay(VError.info(err))}`
-      )
+        }${utils.stringifyForDisplay(VError.info(err))}`,
+      ),
     );
 
 exports.command = 'update';

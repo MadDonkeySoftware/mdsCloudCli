@@ -12,7 +12,7 @@ const printResult = (details) => {
     utils.display(JSON.stringify(details, null, '  '));
   } else {
     utils.display(
-      'An error occurred while requesting the details of the function.'
+      'An error occurred while requesting the details of the function.',
     );
   }
 };

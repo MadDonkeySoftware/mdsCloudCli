@@ -13,7 +13,7 @@ const handle = (argv) => {
       }
     })
     .catch((err) =>
-      utils.display(`There was an issue emitting your message: ${err.message}`)
+      utils.display(`There was an issue emitting your message: ${err.message}`),
     )
     .finally(() => client.close());
 };

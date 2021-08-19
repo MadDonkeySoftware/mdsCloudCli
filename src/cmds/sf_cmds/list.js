@@ -38,8 +38,8 @@ const handle = (env) =>
     .then((machines) => printResult(machines))
     .catch((err) =>
       utils.display(
-        `An error occurred while listing the functions. ${err.message}`
-      )
+        `An error occurred while listing the functions. ${err.message}`,
+      ),
     );
 
 exports.command = 'list';

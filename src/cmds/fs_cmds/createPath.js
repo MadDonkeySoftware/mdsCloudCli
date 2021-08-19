@@ -12,8 +12,8 @@ const handle = (orid, newPath, env) =>
     .then(() => utils.display('Container created successfully.'))
     .catch((err) =>
       utils.display(
-        `An error occurred while creating the container. Message: ${err.message}`
-      )
+        `An error occurred while creating the container. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'createPath <container> <path>';

@@ -15,12 +15,12 @@ const updateStateMachine = ({ id, file }) =>
 const handle = (argv) =>
   updateStateMachine(argv)
     .then((details) =>
-      utils.display(`State machine ${details.orid} successfully updated.`)
+      utils.display(`State machine ${details.orid} successfully updated.`),
     )
     .catch((err) =>
       utils.display(
-        `An error occurred wile updating the state machine. ${err.message}`
-      )
+        `An error occurred wile updating the state machine. ${err.message}`,
+      ),
     );
 
 exports.command = 'update <id> <file>';
