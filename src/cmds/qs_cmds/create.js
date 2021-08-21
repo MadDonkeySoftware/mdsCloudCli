@@ -16,8 +16,8 @@ const handle = ({ queue, resource, dlq }) =>
     .then((result) => printResults(result))
     .catch((err) =>
       utils.display(
-        `An error occurred while creating the queue. ${err.message}`
-      )
+        `An error occurred while creating the queue. ${err.message}`,
+      ),
     );
 
 exports.command = 'create <queue>';

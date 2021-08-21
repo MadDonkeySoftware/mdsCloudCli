@@ -12,7 +12,7 @@ const printResult = (machine) => {
     utils.display(JSON.stringify(machine, null, '  '));
   } else {
     utils.display(
-      'An error occurred while requesting the details of the state machine.'
+      'An error occurred while requesting the details of the state machine.',
     );
   }
 };

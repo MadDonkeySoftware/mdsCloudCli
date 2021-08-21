@@ -9,7 +9,8 @@ const updateFunction = (argv) => {
     argv.id,
     argv.runtime,
     argv.entryPoint,
-    argv.source
+    argv.source,
+    argv.context,
   );
 };
 
@@ -18,14 +19,14 @@ const handle = (argv) =>
     .then((resp) =>
       utils.display(
         `Function updated successfully.${os.EOL}${utils.stringifyForDisplay(
-          resp
-        )}`
-      )
+          resp,
+        )}`,
+      ),
     )
     .catch((err) =>
       utils.display(
-        `An error occurred while updating the function. Message: ${err.message}`
-      )
+        `An error occurred while updating the function. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'update <id>';
@@ -42,6 +43,10 @@ exports.builder = utils.extendBaseCommandBuilder({
   source: {
     demand: true,
     desc: 'Path to an archive (zip) or folder that will be uploaded to the function.',
+  },
+  context: {
+    demand: false,
+    desc: 'A string containing whatever context data this function should run with',
   },
 });
 exports.handler = (argv) => handle(argv);

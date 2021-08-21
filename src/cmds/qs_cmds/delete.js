@@ -12,8 +12,8 @@ const handle = (queue, env) =>
     .then(() => utils.display('Queue removed successfully.'))
     .catch((err) =>
       utils.display(
-        `An error occurred while removing the queue. ${err.message}`
-      )
+        `An error occurred while removing the queue. ${err.message}`,
+      ),
     );
 
 exports.command = 'delete <queue>';

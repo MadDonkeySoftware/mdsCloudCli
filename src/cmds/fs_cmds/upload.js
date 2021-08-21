@@ -12,8 +12,8 @@ const handle = (argv) =>
     .then(() => utils.display('File uploaded successfully'))
     .catch((err) =>
       utils.display(
-        `An error occurred while uploading the file. Message: ${err.message}`
-      )
+        `An error occurred while uploading the file. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'upload <orid> <localFilePath>';

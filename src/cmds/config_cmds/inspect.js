@@ -7,9 +7,9 @@ const handle = (key, env) => {
       utils.display(
         `"${key}" key not understood. Expected: ${_.map(
           utils.CONFIG_ELEMENTS,
-          'key'
-        ).join(', ')}`
-      )
+          'key',
+        ).join(', ')}`,
+      ),
     );
   }
 
@@ -30,7 +30,7 @@ const handle = (key, env) => {
     } else {
       utils.display(
         settings[key] ||
-          `It appears "${key}" is not present in the ${env} config.`
+          `It appears "${key}" is not present in the ${env} config.`,
       );
     }
   });

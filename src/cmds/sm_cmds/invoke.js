@@ -36,7 +36,7 @@ const watchOutput = (env, orid, watchInterval) =>
     if (interval < minWatchInterval) {
       interval = minWatchInterval;
       utils.display(
-        `Watch interval must be at least ${minWatchInterval}. Using ${minWatchInterval}.`
+        `Watch interval must be at least ${minWatchInterval}. Using ${minWatchInterval}.`,
       );
     }
 
@@ -53,7 +53,7 @@ const watchOutput = (env, orid, watchInterval) =>
             utils.display('');
             utils.display(`Execution: ${status}`);
             utils.display(
-              `Output: ${utils.stringifyForDisplay(latestOperation.output)}`
+              `Output: ${utils.stringifyForDisplay(latestOperation.output)}`,
             );
             resolve();
           } else {
@@ -81,7 +81,7 @@ const watchOutput = (env, orid, watchInterval) =>
 
 const handleOutput = (details, { env, watch, watchInterval }) => {
   utils.display(
-    `State machine execution created successfully. Id: ${details.orid}`
+    `State machine execution created successfully. Id: ${details.orid}`,
   );
   if (watch) {
     return watchOutput(env, details.orid, watchInterval);
@@ -96,9 +96,9 @@ const handle = (argv) =>
     .catch((err) =>
       utils.display(
         `An error occurred while invoking the state machine. ${utils.stringifyForDisplay(
-          VError.info(err)
-        )}`
-      )
+          VError.info(err),
+        )}`,
+      ),
     );
 
 exports.command = 'invoke <id> [data]';

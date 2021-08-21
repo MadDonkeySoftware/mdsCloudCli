@@ -12,7 +12,7 @@ const handleOutput = (details) => {
   const { operations } = details;
   const orderedOperations = operations.sort(operationSorter);
   utils.display(
-    utils.stringifyForDisplay({ ...details, operations: orderedOperations })
+    utils.stringifyForDisplay({ ...details, operations: orderedOperations }),
   );
 
   return Promise.resolve();
@@ -23,8 +23,8 @@ const handle = (argv) =>
     .then((details) => handleOutput(details, argv))
     .catch((err) =>
       utils.display(
-        `An error occurred while getting the execution details. ${err.message}`
-      )
+        `An error occurred while getting the execution details. ${err.message}`,
+      ),
     );
 
 exports.command = 'execution <id>';

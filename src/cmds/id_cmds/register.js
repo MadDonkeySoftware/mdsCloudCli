@@ -11,7 +11,7 @@ const ensureCanRun = () =>
 
 const handleResponse = (resp) => {
   utils.display(
-    `Registration successful! Your account ID is: ${resp.accountId}`
+    `Registration successful! Your account ID is: ${resp.accountId}`,
   );
 };
 
@@ -23,8 +23,8 @@ const handle = () =>
       utils.display(
         `An error occurred while registering: ${
           err.message
-        }.${utils.stringifyForDisplay(VError.info(err))}`
-      )
+        }.${utils.stringifyForDisplay(VError.info(err))}`,
+      ),
     );
 
 exports.command = 'register';

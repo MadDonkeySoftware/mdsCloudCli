@@ -11,7 +11,7 @@ const handle = (argv) =>
   updateQueue(argv)
     .then(() => utils.display('Queue updated successfully.'))
     .catch((err) =>
-      utils.display(`An error occurred while updating the queue. ${err}`)
+      utils.display(`An error occurred while updating the queue. ${err}`),
     );
 
 exports.command = 'update <queue>';

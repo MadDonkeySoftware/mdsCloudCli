@@ -12,8 +12,8 @@ const handle = (name, env) =>
     .then(() => utils.display('Container created successfully.'))
     .catch((err) =>
       utils.display(
-        `An error occurred while creating the container. Message: ${err.message}`
-      )
+        `An error occurred while creating the container. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'create <container>';

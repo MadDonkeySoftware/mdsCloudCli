@@ -12,8 +12,8 @@ const handle = (containerOrFile, env) =>
     .then(() => utils.display('Container or file removed successfully.'))
     .catch((err) =>
       utils.display(
-        `An error occurred while removing the container or file. Message: ${err.message}`
-      )
+        `An error occurred while removing the container or file. Message: ${err.message}`,
+      ),
     );
 
 exports.command = 'delete <containerOrFile>';

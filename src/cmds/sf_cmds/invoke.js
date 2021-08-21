@@ -31,9 +31,9 @@ const handle = (argv) =>
     .catch((err) =>
       utils.display(
         `An error occurred while invoking the function. ${utils.stringifyForDisplay(
-          VError.info(err)
-        )}`
-      )
+          VError.info(err),
+        )}`,
+      ),
     );
 
 exports.command = 'invoke <id> [data]';

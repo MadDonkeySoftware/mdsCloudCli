@@ -11,7 +11,7 @@ const handle = (argv) =>
   enqueueMessage(argv)
     .then(() => utils.display('Message queued successfully.'))
     .catch((err) =>
-      utils.display(`An error occurred while enqueueing the message. ${err}`)
+      utils.display(`An error occurred while enqueueing the message. ${err}`),
     );
 
 exports.command = 'enqueueMessage <queue> <message>';

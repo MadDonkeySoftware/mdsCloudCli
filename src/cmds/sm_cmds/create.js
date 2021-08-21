@@ -15,12 +15,12 @@ const createStateMachine = (file) =>
 const handle = (file, env) =>
   createStateMachine(file, env)
     .then((resp) =>
-      utils.display(`State machine created successfully. Id: ${resp.orid}`)
+      utils.display(`State machine created successfully. Id: ${resp.orid}`),
     )
     .catch((err) =>
       utils.display(
-        `An error occurred wile creating the state machine. ${err.message}`
-      )
+        `An error occurred wile creating the state machine. ${err.message}`,
+      ),
     );
 
 exports.command = 'create <file>';
