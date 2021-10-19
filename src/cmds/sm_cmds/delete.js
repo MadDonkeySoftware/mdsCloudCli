@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const deleteStateMachine = (id) => {
-  const client = mdsSdk.getStateMachineServiceClient();
+const deleteStateMachine = async (id) => {
+  const client = await mdsSdk.getStateMachineServiceClient();
   return client.deleteStateMachine(id);
 };
 

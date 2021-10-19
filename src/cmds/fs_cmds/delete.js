@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const deleteContainer = (containerOrFile) => {
-  const client = mdsSdk.getFileServiceClient();
+const deleteContainer = async (containerOrFile) => {
+  const client = await mdsSdk.getFileServiceClient();
   return client.deleteContainerOrPath(containerOrFile);
 };
 

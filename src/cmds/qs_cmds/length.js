@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getQueueLength = (names) => {
-  const client = mdsSdk.getQueueServiceClient();
+const getQueueLength = async (names) => {
+  const client = await mdsSdk.getQueueServiceClient();
   return Promise.all(
     names.map((name) =>
       client

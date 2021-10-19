@@ -3,11 +3,10 @@ const VError = require('verror');
 const utils = require('../../../lib/utils');
 const registerUser = require('../../../lib/register-user');
 
-const ensureCanRun = () =>
-  mdsSdk
-    .getIdentityServiceClient()
-    .getPublicSignature()
-    .then((data) => !!data);
+const ensureCanRun = async () => {
+  const client = await mdsSdk.getIdentityServiceClient();
+  return client.getPublicSignature().then((data) => !!data);
+};
 
 const handleResponse = (resp) => {
   utils.display(

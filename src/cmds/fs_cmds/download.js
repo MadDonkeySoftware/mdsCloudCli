@@ -14,8 +14,8 @@ const mapPath = (newPath) => {
   return newPath;
 };
 
-const uploadToContainer = (containerPath, dest) => {
-  const client = mdsSdk.getFileServiceClient();
+const uploadToContainer = async (containerPath, dest) => {
+  const client = await mdsSdk.getFileServiceClient();
   const destination = dest ? mapPath(dest) : process.cwd();
   return client.downloadFile(containerPath, destination);
 };

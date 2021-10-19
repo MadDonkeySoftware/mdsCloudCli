@@ -19,17 +19,17 @@ const generateBody = (data) => {
   return Promise.resolve(data);
 };
 
-const invokeStateMachine = ({ id, data }) =>
-  generateBody(data).then((body) => {
-    const client = mdsSdk.getStateMachineServiceClient();
-    return client.invokeStateMachine(id, body);
-  });
+const invokeStateMachine = async ({ id, data }) => {
+  const body = await generateBody(data);
+  const client = await mdsSdk.getStateMachineServiceClient();
+  return client.invokeStateMachine(id, body);
+};
 
 const operationSorter = (a, b) => new Date(a.created) - new Date(b.created);
 
-const watchOutput = (env, orid, watchInterval) =>
-  new Promise((resolve, reject) => {
-    const client = mdsSdk.getStateMachineServiceClient();
+const watchOutput = async (env, orid, watchInterval) => {
+  const client = await mdsSdk.getStateMachineServiceClient();
+  return new Promise((resolve, reject) => {
     const minWatchInterval = 10;
     let lastState;
     let interval = watchInterval;
@@ -78,6 +78,7 @@ const watchOutput = (env, orid, watchInterval) =>
     utils.display('States:', true);
     writeUpdate();
   });
+};
 
 const handleOutput = (details, { env, watch, watchInterval }) => {
   utils.display(
