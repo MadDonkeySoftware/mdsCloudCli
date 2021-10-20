@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const enqueueMessage = ({ queue, message }) => {
-  const client = mdsSdk.getQueueServiceClient();
+const enqueueMessage = async ({ queue, message }) => {
+  const client = await mdsSdk.getQueueServiceClient();
   return client.enqueueMessage(queue, message);
 };
 

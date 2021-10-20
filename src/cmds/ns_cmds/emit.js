@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const handle = (argv) => {
-  const client = mdsSdk.getNotificationServiceClient();
+const handle = async (argv) => {
+  const client = await mdsSdk.getNotificationServiceClient();
   const data = argv.dataFormat === 'json' ? JSON.parse(argv.data) : argv.data;
   return client
     .emit(argv.topic, data)

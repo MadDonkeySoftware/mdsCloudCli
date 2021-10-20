@@ -3,8 +3,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const handle = (argv) => {
-  const client = mdsSdk.getNotificationServiceClient();
+const handle = async (argv) => {
+  const client = await mdsSdk.getNotificationServiceClient();
 
   utils.display(`Watching for events on topics: ${argv.topics.join(', ')}`);
   _.forEach(argv.topics, (topic) => {

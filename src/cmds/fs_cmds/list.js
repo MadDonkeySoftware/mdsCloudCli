@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getContainerContents = (containerOrPath) => {
-  const client = mdsSdk.getFileServiceClient();
+const getContainerContents = async (containerOrPath) => {
+  const client = await mdsSdk.getFileServiceClient();
   return client.listContainerContents(containerOrPath);
 };
 

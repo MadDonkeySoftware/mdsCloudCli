@@ -3,8 +3,8 @@ const VError = require('verror');
 
 const utils = require('../../../lib/utils');
 
-const invokeFunction = (argv) => {
-  const client = mdsSdk.getServerlessFunctionsClient();
+const invokeFunction = async (argv) => {
+  const client = await mdsSdk.getServerlessFunctionsClient();
   let input;
   switch (argv.inputType) {
     case 'object':

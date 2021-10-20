@@ -37,8 +37,8 @@ const getPasswords = (argv) => {
   return Promise.resolve(argv);
 };
 
-const updateIdentity = (info) => {
-  const client = mdsSdk.getIdentityServiceClient();
+const updateIdentity = async (info) => {
+  const client = await mdsSdk.getIdentityServiceClient();
   return client.updateUser({
     email: info.email,
     oldPassword: info.oldPassword,

@@ -6,11 +6,11 @@ const utils = require('../../../lib/utils');
 
 const readFile = util.promisify(fs.readFile);
 
-const updateStateMachine = ({ id, file }) =>
-  readFile(file).then((body) => {
-    const client = mdsSdk.getStateMachineServiceClient();
-    return client.updateStateMachine(id, body.toString());
-  });
+const updateStateMachine = async ({ id, file }) => {
+  const body = await readFile(file);
+  const client = await mdsSdk.getStateMachineServiceClient();
+  return client.updateStateMachine(id, body.toString());
+};
 
 const handle = (argv) =>
   updateStateMachine(argv)

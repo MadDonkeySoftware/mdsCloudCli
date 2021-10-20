@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const getFunction = (id) => {
-  const client = mdsSdk.getServerlessFunctionsClient();
+const getFunction = async (id) => {
+  const client = await mdsSdk.getServerlessFunctionsClient();
   return client.getFunctionDetails(id);
 };
 

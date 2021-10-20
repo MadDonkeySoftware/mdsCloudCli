@@ -2,8 +2,8 @@ const mdsSdk = require('@maddonkeysoftware/mds-cloud-sdk-node');
 
 const utils = require('../../../lib/utils');
 
-const deleteFunction = (id) => {
-  const client = mdsSdk.getServerlessFunctionsClient();
+const deleteFunction = async (id) => {
+  const client = await mdsSdk.getServerlessFunctionsClient();
   return client.deleteFunction(id);
 };
 
