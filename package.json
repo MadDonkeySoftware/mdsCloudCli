@@ -2,15 +2,25 @@
   "name": "mds-cloud-cli",
   "version": "0.1.0",
   "description": "A simple CLI for various MDS services",
-  "main": "src/autocomplete.js",
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
   "bin": {
-    "mds": "src/cli.js"
+    "mds": "dist/cli.js"
   },
   "scripts": {
-    "start": "node ./src/index.js",
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rimraf ./dist",
+    "test": "NODE_ENV=test jest",
+    "test-cov": "NODE_ENV=test jest --coverage",
+    "test-watch": "NODE_ENV=test jest --watch",
+    "test-watch-cov": "NODE_ENV=test jest --watch --coverage",
     "lint": "eslint 'src/**'",
     "pretty-check": "prettier -c ./src",
-    "pretty": "prettier -w ./src"
+    "pretty": "prettier -w ./src",
+    "format": "npm run pretty",
+    "prebuild": "npm run clean",
+    "prepublish:setup": "npm run clean && npm run build && node dist/setup-package.js",
+    "publish:setup": "echo 'ready to publish from dist folder!'"
   },
   "repository": {
     "type": "git",
@@ -28,7 +38,7 @@
   },
   "homepage": "https://github.com/MadDonkeySoftware/mdsCloudCli#readme",
   "dependencies": {
-    "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.6",
+    "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.8",
     "cli-table": "^0.3.6",
     "form-data": "^4.0.0",
     "lodash": "^4.17.21",
@@ -38,16 +48,23 @@
     "yargs": "^17.1.1"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
+    "@types/cli-table": "^0.3.0",
+    "@types/jest": "^28.1.4",
+    "@types/lodash": "^4.14.182",
+    "@types/prompts": "^2.0.14",
+    "@types/verror": "^1.10.5",
+    "@types/yargs": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-prettier": "^3.4.0",
-    "mocha": "^9.0.3",
-    "nyc": "^15.1.0",
+    "jest": "^28.1.2",
     "prettier": "^2.3.2",
-    "sinon": "^11.1.2",
-    "sinon-chai": "^3.7.0"
+    "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
   }
 }

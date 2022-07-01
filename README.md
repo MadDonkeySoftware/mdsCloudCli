@@ -10,8 +10,13 @@ https://github.com/orgs/MadDonkeySoftware/projects/1
 
 ### Development
 
+To set up the CLI for local development:
+* `npm run prepublish:setup` -- rebuilds the CLI files
+* `cd dist` -- Switch to the JS files of the CLI
 * `npm link` -- sets up your terminal environment to be able to run `mds`
-* `npm unlink` -- removes the link from your system
+
+To remove the locally linked CLI:
+* `npm unlink mds-cloud-cli` -- removes the link from your system
 
 ## Usage
 
