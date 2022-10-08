@@ -60,5 +60,10 @@ typings/
 # next.js build output
 .next
 
-# typescript outputs
-dist/
+Jenkinsfile
+LICENSE
+scripts/
+.*rc.js
+frito-*
+.vscode/
+.eslintignore
