@@ -8,7 +8,8 @@ const skipDisplayAccount = (argv) =>
 
 export async function environmentMiddleware(argv) {
   // argv._ is list of commands
-  if (argv._[0] === 'env' || argv._[0] === 'setup') {
+  const skipSetupCommands = ['env', 'setup', 'encrypt', 'decrypt'];
+  if (skipSetupCommands.indexOf(argv._[0]) !== -1) {
     return undefined;
   }
 
