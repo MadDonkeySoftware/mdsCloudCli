@@ -5,7 +5,7 @@ const config: InitialOptionsTsJest = {
   testEnvironment: 'node',
   verbose: true,
   forceExit: true,
-  testPathIgnorePatterns: ['dist'],
+  testPathIgnorePatterns: ['dist', 'old-src'],
   coveragePathIgnorePatterns: ['src/wrappers/'],
   coverageThreshold: {
     global: {
