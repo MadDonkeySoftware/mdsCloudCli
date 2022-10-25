@@ -12,6 +12,7 @@ app
   .executableDir('commands')
   .command('config', 'Configure your system for various MDS services.')
   .command('env', 'Inspect or adjust mds CLI environments.')
+  .command('fs', 'Interacts with the MDS file service')
   .hook('preSubcommand', (thisCommand, subCommand) => {
     // TODO: Not sure if these should be done here or in each sub-command
     // mds sdk init
