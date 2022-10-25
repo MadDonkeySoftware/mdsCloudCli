@@ -6,7 +6,6 @@ jest.mock('fs', () => ({
   existsSync: jest.fn(),
   readFileSync: jest.fn(),
 }));
-const mockFs = jest.mocked(fs);
 
 describe('getDefaultEnv', () => {
   beforeEach(() => {
