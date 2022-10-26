@@ -12,6 +12,7 @@ app
   .executableDir('commands')
   .command('config', 'Configure your system for various MDS services.')
   .command('env', 'Inspect or adjust mds CLI environments.')
-  .command('fs', 'Interacts with the MDS file service');
+  .command('fs', 'Interacts with the MDS file service')
+  .command('id', 'Interacts with the MDS identity service');
 
 app.parse(process.argv);

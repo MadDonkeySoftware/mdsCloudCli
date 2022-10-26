@@ -85,7 +85,11 @@ async function submitRegistration(answers: RegistrationAnswers) {
   return client.register(answers).then((resp) => merge({}, answers, resp));
 }
 
-export async function RegisterUser() {
+type RegistrationResult = {
+  accountId: string;
+};
+
+export async function RegisterUser(): Promise<RegistrationResult> {
   const answers = await collectInfo();
   await validateData(answers);
   return await submitRegistration(answers);
