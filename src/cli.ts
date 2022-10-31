@@ -15,6 +15,7 @@ app
   .command('fs', 'Interacts with the MDS file service')
   .command('id', 'Interacts with the MDS identity service')
   .command('ns', 'Interacts with the MDS notification service')
-  .command('qs', 'Interacts with the MDS queue service');
+  .command('qs', 'Interacts with the MDS queue service')
+  .command('sf', 'Interacts with the MDS serverless functions service');
 
 app.parse(process.argv);
