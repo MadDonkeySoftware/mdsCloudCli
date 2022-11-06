@@ -8,22 +8,22 @@ import { display, extendBaseCommand, stringifyForDisplay } from '../../utils';
 
 const cmd = createCommand();
 cmd
-  .name('create')
-  .argument('<name>', 'The name of the new serverless function')
-  .description('Create a new function with the provided name')
+  .name('details')
+  .argument('<orid>', 'The ORID of the state machine to inspect')
+  .description('Gets details for the specified state machine')
   .showHelpAfterError(true);
 
 extendBaseCommand(cmd);
 
-cmd.action(async (name: string, options: Options) => {
+cmd.action(async (orid: string, options: Options) => {
   await MdsSdk.initialize(options.env);
-  const client = await MdsSdk.getServerlessFunctionsClient();
+  const client = await MdsSdk.getStateMachineServiceClient();
 
   try {
-    const result = await client.createFunction(name);
-    display(`Serverless function created successfully. ${result.orid}`);
+    const result = await client.getStateMachine(orid);
+    display(JSON.stringify(result, null, 2));
   } catch (err) {
-    display('An error occurred while creating the serverless function');
+    display('An error occurred while requesting details of the state machine');
     display(stringifyForDisplay(err.message || err));
   }
 });

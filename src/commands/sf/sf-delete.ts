@@ -20,8 +20,8 @@ cmd.action(async (orid: string, options: Options) => {
   const client = await MdsSdk.getServerlessFunctionsClient();
 
   try {
-    const result = await client.deleteFunction(orid);
-    display(`Serverless function removed successfully. ${result.id}`);
+    await client.deleteFunction(orid);
+    display(`Serverless function removed successfully. ${orid}`);
   } catch (err) {
     display('An error occurred while removing the serverless function');
     display(stringifyForDisplay(err.message || err));

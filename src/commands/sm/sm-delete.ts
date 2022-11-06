@@ -8,22 +8,22 @@ import { display, extendBaseCommand, stringifyForDisplay } from '../../utils';
 
 const cmd = createCommand();
 cmd
-  .name('create')
-  .argument('<name>', 'The name of the new serverless function')
-  .description('Create a new function with the provided name')
+  .name('delete')
+  .argument('<orid>', 'The ORID of the state machine to remove')
+  .description('Removes the state machine for the provided ORID')
   .showHelpAfterError(true);
 
 extendBaseCommand(cmd);
 
-cmd.action(async (name: string, options: Options) => {
+cmd.action(async (orid: string, options: Options) => {
   await MdsSdk.initialize(options.env);
-  const client = await MdsSdk.getServerlessFunctionsClient();
+  const client = await MdsSdk.getStateMachineServiceClient();
 
   try {
-    const result = await client.createFunction(name);
-    display(`Serverless function created successfully. ${result.orid}`);
+    const result = await client.deleteStateMachine(orid);
+    display(`State machine removed successfully. ${result.orid}`);
   } catch (err) {
-    display('An error occurred while creating the serverless function');
+    display('An error occurred while removing the state machine');
     display(stringifyForDisplay(err.message || err));
   }
 });

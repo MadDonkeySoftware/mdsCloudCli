@@ -1,4 +1,5 @@
 export * from './config-elements';
+export * from './delay';
 export * from './display';
 export * from './display-table';
 export * from './extend-base-command';

@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/MadDonkeySoftware/mdsCloudCli#readme",
   "dependencies": {
-    "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.8",
+    "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.9",
     "cli-table": "^0.3.6",
     "commander": "^9.4.1",
     "crypto-js": "^4.1.1",
