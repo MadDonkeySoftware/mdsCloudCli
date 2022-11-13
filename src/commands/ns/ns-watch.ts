@@ -2,7 +2,7 @@
 // NOTE: the above is intentionally using node since that is the proper value after transpilation
 
 import { MdsSdk } from '@maddonkeysoftware/mds-cloud-sdk-node';
-import { createCommand, createOption } from 'commander';
+import { createCommand } from 'commander';
 import { Options } from '../../types';
 import { display, extendBaseCommand, stringifyForDisplay } from '../../utils';
 
