@@ -87,6 +87,12 @@ async function submitRegistration(answers: RegistrationAnswers) {
 
 type RegistrationResult = {
   accountId: string;
+  friendlyName: string;
+  userId: string;
+  email: string;
+  password: string;
+  password2: string;
+  accountName: string;
 };
 
 export async function RegisterUser(): Promise<RegistrationResult> {

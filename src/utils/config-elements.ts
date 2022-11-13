@@ -1,4 +1,12 @@
-export const CONFIG_ELEMENTS = [
+export type ConfigElement = {
+  key: string;
+  display: string;
+  promptType: string;
+  isUrl: boolean;
+  displayOrder: number;
+};
+
+export const CONFIG_ELEMENTS: ConfigElement[] = [
   {
     key: 'account',
     display: 'Account',
