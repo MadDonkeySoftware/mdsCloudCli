@@ -1,6 +1,5 @@
-// type ArgumentsCamelCase<T = {}> = { [key in keyof T as key | CamelCaseKey<key>]: T[key] } & {
 export type Options<T = Record<string, unknown>> = {
-  [key in keyof T as key];
+  [key in keyof T as key]: T[key];
 } & {
   env: string;
 };

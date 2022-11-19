@@ -3,7 +3,7 @@
 
 import { MdsSdk } from '@maddonkeysoftware/mds-cloud-sdk-node';
 import { ContainerPathContents } from '@maddonkeysoftware/mds-cloud-sdk-node/types';
-import { createCommand, Option } from 'commander';
+import { createCommand, createOption } from 'commander';
 import { Options } from '../../types';
 import {
   display,
@@ -20,7 +20,7 @@ cmd
     'The ORID of the container, or container path, that you wish to display.',
   )
   .addOption(
-    new Option('-m, --output-mode <mode>', 'Methodology to output results')
+    createOption('-m, --output-mode <mode>', 'Methodology to output results')
       .choices(['pretty', 'json'])
       .default('pretty'),
   )
