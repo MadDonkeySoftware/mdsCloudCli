@@ -2,8 +2,6 @@
 // NOTE: the above is intentionally using node since that is the proper value after transpilation
 
 import { createCommand } from 'commander';
-// import * as yargs from 'yargs';
-// import { environmentMiddleware, mdsSdkInitMiddleware } from './middleware';
 
 const app = createCommand();
 app
