@@ -20,7 +20,8 @@
     "format": "npm run pretty",
     "prebuild": "npm run clean",
     "prepublish:setup": "npm run clean && npm run build && node dist/setup-package.js",
-    "publish:setup": "echo 'ready to publish from dist folder!'"
+    "publish:setup": "echo 'ready to publish from dist folder!'",
+    "publish:watch": "nodemon -w src -e 'ts' --exec 'npm run publish:setup'"
   },
   "repository": {
     "type": "git",
@@ -38,15 +39,11 @@
   },
   "homepage": "https://github.com/MadDonkeySoftware/mdsCloudCli#readme",
   "dependencies": {
-    "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.8",
+    "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.9",
     "cli-table": "^0.3.6",
+    "commander": "^9.4.1",
     "crypto-js": "^4.1.1",
-    "form-data": "^4.0.0",
-    "lodash": "^4.17.21",
-    "prompts": "^2.4.1",
-    "url-join": "^4.0.1",
-    "verror": "^1.10.0",
-    "yargs": "^17.1.1"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/cli-table": "^0.3.0",
@@ -54,8 +51,6 @@
     "@types/jest": "^28.1.4",
     "@types/lodash": "^4.14.182",
     "@types/prompts": "^2.0.14",
-    "@types/verror": "^1.10.5",
-    "@types/yargs": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^7.32.0",
@@ -63,6 +58,7 @@
     "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^28.1.2",
+    "nodemon": "^2.0.20",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
