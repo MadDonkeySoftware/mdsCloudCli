@@ -41,7 +41,7 @@
   "dependencies": {
     "@maddonkeysoftware/mds-cloud-sdk-node": "0.2.9",
     "cli-table": "^0.3.6",
-    "commander": "^9.4.1",
+    "commander": "^11.0.0",
     "crypto-js": "^4.1.1",
     "lodash": "^4.17.21"
   },
